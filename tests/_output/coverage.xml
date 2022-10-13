@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1665621031">
+  <project timestamp="1665621031">
+    <file name="/var/www/src/CommandModel/Post.php">
+      <class name="Post\CommandModel\Post" namespace="global">
+        <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+      </class>
+      <line num="8" type="method" name="post" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="9" type="stmt" count="1"/>
+      <line num="11" type="method" name="repost" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="12" type="stmt" count="1"/>
+      <line num="14" type="method" name="quote" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="15" type="stmt" count="1"/>
+      <metrics loc="17" ncloc="17" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+    </file>
+    <metrics files="1" loc="17" ncloc="17" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+  </project>
+</coverage>

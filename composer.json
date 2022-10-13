@@ -11,9 +11,7 @@
         "php-di/php-di": "^6",
         "slim/psr7": "^1",
         "slim/twig-view": "^3.3",
-        "mongodb/mongodb": "^1.13",
-        "ramsey/uuid": "^4",
-        "aws/aws-sdk-php": "^3"
+        "ramsey/uuid": "^4"
     },
     "require-dev": {
         "symfony/console": "^5",

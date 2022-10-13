@@ -2,18 +2,16 @@ FROM php:8.1.3-fpm-alpine3.14 AS source
 
 WORKDIR /var/www
 
-COPY templates/ ./templates
 COPY src/ ./src
 COPY public/* ./html/
 COPY composer.json .
-COPY composer.lock .
+# COPY composer.lock .
 RUN apk upgrade && apk update && apk add --no-cache composer openssl-dev 
 
-COPY ca/ ./ca
-RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \ 
-    && pecl install mongodb-1.14.1 \
-    && apk del pcre-dev ${PHPIZE_DEPS} \
-    && echo 'extension=mongodb.so' >> /usr/local/etc/php/php.ini
+# RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \ 
+#     && pecl install mongodb-1.14.1 \
+#     && apk del pcre-dev ${PHPIZE_DEPS} \
+#     && echo 'extension=mongodb.so' >> /usr/local/etc/php/php.ini
 
 FROM source AS base
 RUN composer install --no-dev && composer dump-autoload

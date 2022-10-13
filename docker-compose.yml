@@ -1,20 +1,20 @@
 version: '3.9'
 
 services:
-  mongo40:
-    image: mongo:4.0
-    container_name: mongo40
-    network_mode: "host"
-    volumes:
-      - ~/apps/mongo:/data/db 
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=rootpass
-    healthcheck:
-      test: test $$(echo "rs.initiate().ok || rs.status().ok") -eq 1
-      interval: 10s
-      start_period: 30s
-    command: ["--replSet", "rs0", "--bind_ip_all"]
+  # mongo40:
+  #   image: mongo:4.0
+  #   container_name: mongo40
+  #   network_mode: "host"
+  #   volumes:
+  #     - ~/apps/mongo:/data/db 
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=rootpass
+  #   healthcheck:
+  #     test: test $$(echo "rs.initiate().ok || rs.status().ok") -eq 1
+  #     interval: 10s
+  #     start_period: 30s
+  #   command: ["--replSet", "rs0", "--bind_ip_all"]
 
   nginx:
     image: nginx:latest
@@ -37,9 +37,7 @@ services:
       - ./local/xdebug:/usr/local/etc/php/conf.d/
       - ./public:/var/www/html
       - ./src:/var/www/src
-      - ./templates:/var/www/templates
       - ./vendor:/var/www/vendor
       - ./tests:/var/www/tests
       - ./composer.json:/var/www/composer.json
       - ./composer.lock:/var/www/composer.lock
-      - ./ca:/var/www/ca/
