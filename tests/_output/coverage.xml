@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1665891867">
-  <project timestamp="1665891867">
+<coverage generated="1665925277">
+  <project timestamp="1665925277">
     <file name="/var/www/src/Post/Command/PostHandler.php">
       <class name="Post\Command\OriginalHanlder" namespace="global">
         <metrics complexity="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
@@ -31,12 +31,12 @@
       <class name="Post\CommandModel\PostFactory" namespace="global">
         <metrics complexity="11" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="30" elements="34" coveredelements="34"/>
       </class>
-      <line num="9" type="method" name="build" visibility="public" complexity="1" crap="1" count="8"/>
-      <line num="11" type="stmt" count="8"/>
-      <line num="13" type="stmt" count="8"/>
-      <line num="14" type="stmt" count="8"/>
-      <line num="15" type="stmt" count="5"/>
-      <line num="16" type="stmt" count="3"/>
+      <line num="9" type="method" name="build" visibility="public" complexity="1" crap="1" count="10"/>
+      <line num="11" type="stmt" count="10"/>
+      <line num="13" type="stmt" count="10"/>
+      <line num="14" type="stmt" count="10"/>
+      <line num="15" type="stmt" count="7"/>
+      <line num="16" type="stmt" count="4"/>
       <line num="17" type="stmt" count="3"/>
       <line num="21" type="method" name="original" visibility="public" complexity="3" crap="3" count="3"/>
       <line num="23" type="stmt" count="3"/>
@@ -46,19 +46,19 @@
       <line num="29" type="stmt" count="1"/>
       <line num="30" type="stmt" count="1"/>
       <line num="31" type="stmt" count="1"/>
-      <line num="35" type="method" name="repost" visibility="public" complexity="3" crap="3" count="2"/>
-      <line num="37" type="stmt" count="2"/>
-      <line num="38" type="stmt" count="1"/>
+      <line num="35" type="method" name="repost" visibility="public" complexity="3" crap="3" count="3"/>
+      <line num="37" type="stmt" count="3"/>
+      <line num="38" type="stmt" count="2"/>
       <line num="41" type="stmt" count="1"/>
       <line num="42" type="stmt" count="1"/>
       <line num="43" type="stmt" count="1"/>
       <line num="44" type="stmt" count="1"/>
       <line num="45" type="stmt" count="1"/>
-      <line num="49" type="method" name="quote" visibility="public" complexity="4" crap="4" count="3"/>
-      <line num="53" type="stmt" count="3"/>
-      <line num="54" type="stmt" count="2"/>
-      <line num="55" type="stmt" count="3"/>
-      <line num="57" type="stmt" count="2"/>
+      <line num="49" type="method" name="quote" visibility="public" complexity="4" crap="4" count="4"/>
+      <line num="53" type="stmt" count="4"/>
+      <line num="54" type="stmt" count="3"/>
+      <line num="55" type="stmt" count="4"/>
+      <line num="57" type="stmt" count="3"/>
       <line num="60" type="stmt" count="1"/>
       <line num="61" type="stmt" count="1"/>
       <line num="62" type="stmt" count="1"/>

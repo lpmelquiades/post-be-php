@@ -51,4 +51,19 @@ class InvalidPostTest extends TestCase
         $f->build($d->getInvalidQuoteWithoutText(), PostType::QUOTE);
     }
 
+    public function testWhenRepostHasNoOriginalId()
+    {
+        $this->expectExceptionMessage(ExceptionReference::INVALID_REPOST->value);
+        $d = new InvalidDataProvider();
+        $f = new PostFactory();
+        $f->build($d->getInvalidRepostWithoutOriginalId(), PostType::REPOST);
+    }
+
+    public function testWhenQuoteHasNoOriginalId()
+    {
+        $this->expectExceptionMessage(ExceptionReference::INVALID_QUOTE->value);
+        $d = new InvalidDataProvider();
+        $f = new PostFactory();
+        $f->build($d->getInvalidQuoteWithoutOriginalId(), PostType::QUOTE);
+    }
 }
