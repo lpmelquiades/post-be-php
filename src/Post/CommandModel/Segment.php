@@ -27,7 +27,11 @@ final class Segment
             throw new \LogicException(ExceptionReference::MAX_LIMIT_REACHED->value);
         }
 
-        if (!$this->isValidPostForSegment($post)) {
+        if ($this->userName->value !== $post->getUserName()->value) {
+            throw new \LogicException(ExceptionReference::INVALID_POST_FOR_SEGMENT->value);
+        }
+
+        if (!$this->hasValidCreatedAtForSegment($post)) {
             throw new \LogicException(ExceptionReference::INVALID_POST_FOR_SEGMENT->value);
         }
 
@@ -39,7 +43,7 @@ final class Segment
         };
     }
 
-    private function isValidPostForSegment(Post $post): bool
+    private function hasValidCreatedAtForSegment(Post $post): bool
     {
         $createdAtDT = DateTime::createFromFormat(
             Timestamp::FORMAT,
@@ -47,10 +51,10 @@ final class Segment
         );
         $beginDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->begin->value);
         $endDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->end->value);
-        if ($createdAtDT >= $beginDT && $createdAtDT < $endDT) {
-            return true;
+        if ($createdAtDT < $beginDT || $createdAtDT >= $endDT) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public function original(Original $post)
