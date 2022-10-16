@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
-use DateTime;
-use Exception;
 use Illuminate\Support\Collection;
 
 final class Segment

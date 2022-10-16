@@ -8,13 +8,11 @@ use PHPUnit\Framework\TestCase;
 use Post\CommandModel\PostFactory;
 use Post\CommandModel\PostType;
 use Post\CommandModel\Segment;
-use Post\CommandModel\Uuid;
 
 class PostTest extends TestCase
 {
     public function testWhenOriginalIsValid()
     {
-        $x =  Uuid::build();
         $d =  new DataProvider();
         $f =  new PostFactory();
         $post = $f->build($d->getOriginal(), PostType::ORIGINAL);
@@ -27,5 +25,37 @@ class PostTest extends TestCase
         );
 
         $this->assertSame($segment->post($post), 'post');
+    }
+
+    public function testWhenRepostIsValid()
+    {
+        $d =  new DataProvider();
+        $f =  new PostFactory();
+        $post = $f->build($d->getRepost(), PostType::REPOST);
+        $day = $post->getCreatedAt();
+        
+        $segment = new Segment(
+            $post->getUserName(),
+            $day->beginningOfDay(),
+            $day->beginningOfTomorrow()
+        );
+
+        $this->assertSame($segment->post($post), 'repost');
+    }
+
+    public function testWhenQuoteIsValid()
+    {
+        $d =  new DataProvider();
+        $f =  new PostFactory();
+        $post = $f->build($d->getQuote(), PostType::QUOTE);
+        $day = $post->getCreatedAt();
+        
+        $segment = new Segment(
+            $post->getUserName(),
+            $day->beginningOfDay(),
+            $day->beginningOfTomorrow()
+        );
+
+        $this->assertSame($segment->post($post), 'quote');
     }
 }
