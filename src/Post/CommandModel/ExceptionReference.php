@@ -7,6 +7,7 @@ namespace Post\CommandModel;
 enum ExceptionReference: String
 {
     case INVALID_POST = 'INVALID_POST';
+    case INVALID_POST_FOR_SEGMENT = 'INVALID_POST_FOR_SEGMENT';
     case INVALID_ORIGINAL = 'INVALID_ORIGINAL';
     case INVALID_REPOST = 'INVALID_REPOST';
     case INVALID_QUOTE = 'INVALID_QUOTE';

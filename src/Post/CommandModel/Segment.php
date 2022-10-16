@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
+use DateTime;
 use Illuminate\Support\Collection;
 
 final class Segment
@@ -26,12 +27,30 @@ final class Segment
             throw new \LogicException(ExceptionReference::MAX_LIMIT_REACHED->value);
         }
 
+        if (!$this->isValidPostForSegment($post)) {
+            throw new \LogicException(ExceptionReference::INVALID_POST_FOR_SEGMENT->value);
+        }
+
         return match($post->getType()->value) {
             PostType::ORIGINAL->value => $this->original($post),
             PostType::REPOST->value => $this->repost($post),
             PostType::QUOTE->value => $this->quote($post),
             'default' => throw new \LogicException(ExceptionReference::INVALID_POST->value)            
         };
+    }
+
+    private function isValidPostForSegment(Post $post): bool
+    {
+        $createdAtDT = DateTime::createFromFormat(
+            Timestamp::FORMAT,
+            $post->getCreatedAt()->value
+        );
+        $beginDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->begin->value);
+        $endDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->end->value);
+        if ($createdAtDT >= $beginDT && $createdAtDT < $endDT) {
+            return true;
+        }
+        return false;
     }
 
     public function original(Original $post)
