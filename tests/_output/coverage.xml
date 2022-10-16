@@ -1,18 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1665621031">
-  <project timestamp="1665621031">
-    <file name="/var/www/src/CommandModel/Post.php">
-      <class name="Post\CommandModel\Post" namespace="global">
-        <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+<coverage generated="1665886725">
+  <project timestamp="1665886725">
+    <file name="/var/www/src/Post/Command/PostHandler.php">
+      <class name="Post\Command\OriginalHanlder" namespace="global">
+        <metrics complexity="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
       </class>
-      <line num="8" type="method" name="post" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="9" type="stmt" count="1"/>
-      <line num="11" type="method" name="repost" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="12" type="stmt" count="1"/>
-      <line num="14" type="method" name="quote" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="15" type="stmt" count="1"/>
-      <metrics loc="17" ncloc="17" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+      <metrics loc="15" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="1" loc="17" ncloc="17" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+    <file name="/var/www/src/Post/CommandModel/ExceptionReference.php">
+      <metrics loc="14" ncloc="14" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Original.php">
+      <class name="Post\CommandModel\Original" namespace="global">
+        <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="9" coveredelements="9"/>
+      </class>
+      <line num="11" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="17" type="stmt" count="1"/>
+      <line num="20" type="method" name="getCreatedAt" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <line num="25" type="method" name="getUserName" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="27" type="stmt" count="1"/>
+      <line num="30" type="method" name="getType" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="32" type="stmt" count="1"/>
+      <metrics loc="35" ncloc="35" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="9" coveredelements="9"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Post.php">
+      <metrics loc="15" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/PostFactory.php">
+      <class name="Post\CommandModel\PostFactory" namespace="global">
+        <metrics complexity="4" methods="4" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="9" elements="26" coveredelements="10"/>
+      </class>
+      <line num="9" type="method" name="build" visibility="public" complexity="1" crap="1.04" count="1"/>
+      <line num="11" type="stmt" count="1"/>
+      <line num="12" type="stmt" count="1"/>
+      <line num="13" type="stmt" count="1"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="15" type="stmt" count="0"/>
+      <line num="16" type="stmt" count="1"/>
+      <line num="20" type="method" name="original" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <line num="23" type="stmt" count="1"/>
+      <line num="24" type="stmt" count="1"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="26" type="stmt" count="1"/>
+      <line num="30" type="method" name="repost" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="40" type="method" name="quote" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <metrics loc="51" ncloc="51" classes="1" methods="4" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="9" elements="26" coveredelements="10"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/PostType.php">
+      <metrics loc="13" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Quote.php">
+      <class name="Post\CommandModel\Quote" namespace="global">
+        <metrics complexity="4" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="9" coveredelements="0"/>
+      </class>
+      <line num="11" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="21" type="method" name="getCreatedAt" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="23" type="stmt" count="0"/>
+      <line num="26" type="method" name="getUserName" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="31" type="method" name="getType" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <metrics loc="36" ncloc="36" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="9" coveredelements="0"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Repost.php">
+      <class name="Post\CommandModel\Repost" namespace="global">
+        <metrics complexity="4" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="9" coveredelements="0"/>
+      </class>
+      <line num="11" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="20" type="method" name="getCreatedAt" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="22" type="stmt" count="0"/>
+      <line num="25" type="method" name="getUserName" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="27" type="stmt" count="0"/>
+      <line num="30" type="method" name="getType" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <metrics loc="35" ncloc="35" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="9" coveredelements="0"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Segment.php">
+      <class name="Post\CommandModel\Segment" namespace="global">
+        <metrics complexity="6" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="7" elements="17" coveredelements="9"/>
+      </class>
+      <line num="17" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <line num="25" type="method" name="post" visibility="public" complexity="2" crap="2.31" count="1"/>
+      <line num="27" type="stmt" count="1"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="1"/>
+      <line num="32" type="stmt" count="1"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="1"/>
+      <line num="39" type="method" name="original" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="41" type="stmt" count="1"/>
+      <line num="44" type="method" name="repost" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="49" type="method" name="quote" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="51" type="stmt" count="0"/>
+      <metrics loc="54" ncloc="54" classes="1" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="7" elements="17" coveredelements="9"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Text.php">
+      <class name="Post\CommandModel\Text" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="2" elements="4" coveredelements="2"/>
+      </class>
+      <line num="12" type="method" name="__construct" visibility="public" complexity="2" crap="2.15" count="1"/>
+      <line num="15" type="stmt" count="1"/>
+      <line num="16" type="stmt" count="0"/>
+      <metrics loc="20" ncloc="20" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="2" elements="4" coveredelements="2"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Timestamp.php">
+      <class name="Post\CommandModel\Timestamp" namespace="global">
+        <metrics complexity="5" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="11" elements="16" coveredelements="14"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="2" crap="2.15" count="1"/>
+      <line num="17" type="stmt" count="1"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="22" type="method" name="now" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="24" type="stmt" count="1"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="28" type="method" name="beginningOfDay" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="30" type="stmt" count="1"/>
+      <line num="31" type="stmt" count="1"/>
+      <line num="32" type="stmt" count="1"/>
+      <line num="35" type="method" name="beginningOfTomorrow" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="37" type="stmt" count="1"/>
+      <line num="38" type="stmt" count="1"/>
+      <line num="39" type="stmt" count="1"/>
+      <line num="40" type="stmt" count="1"/>
+      <metrics loc="43" ncloc="43" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="11" elements="16" coveredelements="14"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/UserName.php">
+      <class name="Post\CommandModel\UserName" namespace="global">
+        <metrics complexity="4" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="6" coveredelements="4"/>
+      </class>
+      <line num="19" type="method" name="__construct" visibility="public" complexity="4" crap="4.13" count="1"/>
+      <line num="23" type="stmt" count="1"/>
+      <line num="24" type="stmt" count="1"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="27" type="stmt" count="0"/>
+      <metrics loc="30" ncloc="25" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="6" coveredelements="4"/>
+    </file>
+    <file name="/var/www/src/Post/CommandModel/Uuid.php">
+      <class name="Post\CommandModel\Uuid" namespace="global">
+        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
+      </class>
+      <line num="9" type="method" name="__construct" visibility="public" complexity="2" crap="2.06" count="1"/>
+      <line num="12" type="stmt" count="1"/>
+      <line num="13" type="stmt" count="1"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="18" type="method" name="build" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="20" type="stmt" count="1"/>
+      <metrics loc="23" ncloc="23" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
+    </file>
+    <metrics files="13" loc="384" ncloc="379" classes="9" methods="29" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="74" coveredstatements="42" elements="103" coveredelements="53"/>
   </project>
 </coverage>

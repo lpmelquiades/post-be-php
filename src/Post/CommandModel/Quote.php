@@ -17,4 +17,19 @@ final class Quote implements Post
     ){
         $this->type = PostType::QUOTE;
     }
+
+    public function getCreatedAt(): Timestamp
+    {
+        return $this->createdAt;
+    }
+
+    public function getUserName(): UserName
+    {
+        return $this->userName;
+    }
+
+    public function getType(): PostType
+    {
+        return $this->type;
+    }
 }
