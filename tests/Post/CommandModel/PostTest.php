@@ -24,7 +24,8 @@ class PostTest extends TestCase
             $day->beginningOfTomorrow()
         );
 
-        $this->assertSame($segment->post($post), 'post');
+        $segment->post($post);
+        $this->assertSame(1, $segment->count());
     }
 
     public function testWhenRepostIsValid()
@@ -40,7 +41,8 @@ class PostTest extends TestCase
             $day->beginningOfTomorrow()
         );
 
-        $this->assertSame($segment->post($post), 'repost');
+        $segment->post($post);
+        $this->assertSame(1, $segment->count());
     }
 
     public function testWhenQuoteIsValid()
@@ -55,7 +57,7 @@ class PostTest extends TestCase
             $day->beginningOfDay(),
             $day->beginningOfTomorrow()
         );
-
-        $this->assertSame($segment->post($post), 'quote');
+        $segment->post($post);
+        $this->assertSame(1, $segment->count());
     }
 }

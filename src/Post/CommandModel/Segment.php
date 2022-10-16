@@ -20,8 +20,13 @@ final class Segment
     ) {
         $this->posts = new Collection();
     }
+
+    public function addForbbidenOriginalId(Uuid $originalId): void
+    {
+        $this->forbiddenIds->put($originalId->value, $originalId);
+    }
  
-    public function post(Post $post): string
+    public function post(Post $post): void
     {
         if ($this->posts->count() === static::MAX_COUNT) {
             throw new \LogicException(ExceptionReference::MAX_LIMIT_REACHED->value);
@@ -35,12 +40,7 @@ final class Segment
             throw new \LogicException(ExceptionReference::INVALID_POST_FOR_SEGMENT->value);
         }
 
-        return match($post->getType()->value) {
-            PostType::ORIGINAL->value => $this->original($post),
-            PostType::REPOST->value => $this->repost($post),
-            PostType::QUOTE->value => $this->quote($post),
-            'default' => throw new \LogicException(ExceptionReference::INVALID_POST->value)            
-        };
+        $this->posts->add($post);
     }
 
     private function hasValidCreatedAtForSegment(Post $post): bool
@@ -57,18 +57,8 @@ final class Segment
         return true;
     }
 
-    public function original(Original $post)
+    public function count(): int
     {
-        return 'post';
-    }
-
-    public function repost(Repost $repost)
-    {
-        return 'repost';
-    }
-
-    public function quote(Quote $quote)
-    {
-        return 'quote';
+        return $this->posts->count();
     }
 }
