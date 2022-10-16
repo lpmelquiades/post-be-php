@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
-final class Quote implements Post
+final class Quote
 {
     public readonly PostType $type;
 
@@ -16,20 +16,5 @@ final class Quote implements Post
         public readonly Timestamp $createdAt
     ){
         $this->type = PostType::QUOTE;
-    }
-
-    public function getCreatedAt(): Timestamp
-    {
-        return $this->createdAt;
-    }
-
-    public function getUserName(): UserName
-    {
-        return $this->userName;
-    }
-
-    public function getType(): PostType
-    {
-        return $this->type;
     }
 }

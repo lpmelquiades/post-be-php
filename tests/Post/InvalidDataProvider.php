@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Post\Tests\CommandModel;
+namespace Post\Tests;
 
 final class InvalidDataProvider
 {

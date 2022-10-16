@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Post\Tests\CommandModel;
+namespace Post\Tests;
 
 final class DataProvider
 {
-    public function getOriginal(): string
+    public function getPost(): string
     {
         return '
         {

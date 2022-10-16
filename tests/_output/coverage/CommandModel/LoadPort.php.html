@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Code Coverage for /var/www/src/Post/CommandModel/PostType.php</title>
+  <title>Code Coverage for /var/www/src/Post/CommandModel/LoadPort.php</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../_css/octicons.css" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">/var/www/src/Post</a></li>
          <li class="breadcrumb-item"><a href="index.html">CommandModel</a></li>
-         <li class="breadcrumb-item active">PostType.php</li>
+         <li class="breadcrumb-item active">LoadPort.php</li>
 
        </ol>
       </nav>
@@ -68,11 +68,11 @@
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="5" href="#5">5</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">Post\CommandModel</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="6" href="#6">6</a></td><td class="col-11 codeLine"></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="7" href="#7">7</a></td><td class="col-11 codeLine"><span class="keyword">enum</span><span class="default">&nbsp;</span><span class="default">PostType</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">String</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="7" href="#7">7</a></td><td class="col-11 codeLine"><span class="keyword">interface</span><span class="default">&nbsp;</span><span class="default">LoadPort</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="8" href="#8">8</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="9" href="#9">9</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">ORIGINAL</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'ORIGINAL'</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="10" href="#10">10</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">REPOST</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'REPOST'</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="11" href="#11">11</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">QUOTE</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'QUOTE'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="9" href="#9">9</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">segment</span><span class="keyword">(</span><span class="default">UserName</span><span class="default">&nbsp;</span><span class="default">$userName</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">Timestamp</span><span class="default">&nbsp;</span><span class="default">$begin</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">Timestamp</span><span class="default">&nbsp;</span><span class="default">$end</span><span class="keyword">)</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">Segment</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="10" href="#10">10</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="11" href="#11">11</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">original</span><span class="keyword">(</span><span class="default">Uuid</span><span class="default">&nbsp;</span><span class="default">$quote</span><span class="keyword">)</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">Original</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="12" href="#12">12</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
 
 </tbody>

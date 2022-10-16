@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
-final class Repost implements Post
+final class Repost
 {
     public readonly PostType $type;
 

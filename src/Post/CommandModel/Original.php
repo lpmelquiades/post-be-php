@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 namespace Post\CommandModel;
-
-final class Original implements Post
+final class Original
 {
     public readonly PostType $type;
 
@@ -15,20 +14,5 @@ final class Original implements Post
         public readonly Timestamp $createdAt
     ){
         $this->type = PostType::ORIGINAL;
-    }
-
-    public function getCreatedAt(): Timestamp
-    {
-        return $this->createdAt;
-    }
-
-    public function getUserName(): UserName
-    {
-        return $this->userName;
-    }
-
-    public function getType(): PostType
-    {
-        return $this->type;
     }
 }

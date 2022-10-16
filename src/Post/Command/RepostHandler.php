@@ -7,6 +7,7 @@ namespace Post\Command;
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\Post;
 use Post\CommandModel\Repost;
+use Post\CommandModel\Timestamp;
 
 final class RepostHandler
 {
@@ -16,14 +17,15 @@ final class RepostHandler
 
     public function handler(Repost $repost): void
     {
+        $now = Timestamp::now();
         $segment = $this->load->segment(
             $repost->userName,
-            $repost->createdAt->beginningOfDay(),
-            $repost->createdAt->beginningOfTomorrow()
+            $now->beginningOfDay(),
+            $now->beginningOfTomorrow()
         );
 
-        $original = $this->load->originalFromRepost($repost);
-        $segment->repost($original, $repost);
+        $original = $this->load->original($repost->originalPostId);
+        $segment->repost($original, $repost->userName, $now);
     }
 
 }

@@ -6,24 +6,22 @@ namespace Post\Command;
 
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\Timestamp;
-use Post\CommandModel\Uuid;
 
-final class QuoteHandler
+final class PostHandler
 {
     public function __construct(private LoadPort $load)
     {
     }
 
-    public function handler(Quote $quote): void
+    public function handler(Post $post): void
     {
         $now = Timestamp::now();
         $segment = $this->load->segment(
-            $quote->userName,
+            $post->userName,
             $now->beginningOfDay(),
             $now->beginningOfTomorrow()
         );
 
-        $original = $this->load->original($quote->originalPostId);
-        $segment->quote($original, $quote->userName, $quote->text, $now);
+        $segment->post($post->userName, $post->text, $now);
     }
 }

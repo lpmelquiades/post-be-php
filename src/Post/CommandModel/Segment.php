@@ -26,28 +26,55 @@ final class Segment
         $this->forbiddenIds->put($originalId->value, $originalId);
     }
  
-    public function post(Post $post): void
+    public function post(UserName $userName, Text $text, Timestamp $createdAt): void
+    {
+        $this->validate($userName, $createdAt);
+        $this->posts->add(new Original(Uuid::build(), $userName, $text, $createdAt));
+    }
+
+    public function quote(Original $post, UserName $userName, Text $text, Timestamp $createdAt): void
+    {
+        $this->validate($userName, $createdAt);
+        $this->posts->add(new Quote(
+            Uuid::build(),
+            $post->id,
+            $userName,
+            $text,
+            $createdAt
+        ));
+    }
+
+    public function repost(Original $post, UserName $userName, Timestamp $createdAt): void
+    {
+        $this->validate($userName, $createdAt);
+        $this->posts->add(new Repost(
+            Uuid::build(),
+            $post->id,
+            $userName,
+            $createdAt
+        ));
+    }
+
+    private function validate(UserName $userName, Timestamp $createdAt): void
     {
         if ($this->posts->count() === static::MAX_COUNT) {
             throw new \LogicException(ExceptionReference::MAX_LIMIT_REACHED->value);
         }
 
-        if ($this->userName->value !== $post->getUserName()->value) {
-            throw new \LogicException(ExceptionReference::INVALID_POST_FOR_SEGMENT->value);
+        if ($this->userName->value !== $userName->value) {
+            throw new \LogicException(ExceptionReference::UNFIT_FOR_SEGMENT_USERNAME->value);
         }
 
-        if (!$this->hasValidCreatedAtForSegment($post)) {
-            throw new \LogicException(ExceptionReference::INVALID_POST_FOR_SEGMENT->value);
+        if (!$this->hasValidCreatedAtForSegment($createdAt)) {
+            throw new \LogicException(ExceptionReference::UNFIT_FOR_SEGMENT_DURATION->value);
         }
-
-        $this->posts->add($post);
     }
 
-    private function hasValidCreatedAtForSegment(Post $post): bool
+    private function hasValidCreatedAtForSegment(Timestamp $createdAt): bool
     {
         $createdAtDT = DateTime::createFromFormat(
             Timestamp::FORMAT,
-            $post->getCreatedAt()->value
+            $createdAt->value
         );
         $beginDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->begin->value);
         $endDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->end->value);
