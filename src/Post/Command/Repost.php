@@ -21,12 +21,12 @@ final class Repost
     public static function build(string $payload): Repost
     {
         $arr = json_decode($payload, true);
-        if (!isset($arr['username']) || !isset($arr['original_id'])) {
+        if (!isset($arr['username']) || !isset($arr['target_id'])) {
             throw new \LogicException(ExceptionReference::INVALID_REPOST->value);
         }
 
         return new static(
-            new Uuid($arr['original_id']),
+            new Uuid($arr['target_id']),
             new UserName($arr['username']),
             Timestamp::now()
         );

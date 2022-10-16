@@ -20,11 +20,6 @@ final class Segment
     ) {
         $this->posts = new Collection();
     }
-
-    public function addForbbidenOriginalId(Uuid $originalId): void
-    {
-        $this->forbiddenIds->put($originalId->value, $originalId);
-    }
  
     public function post(UserName $userName, Text $text, Timestamp $createdAt): void
     {
@@ -32,7 +27,12 @@ final class Segment
         $this->posts->add(new Original(Uuid::build(), $userName, $text, $createdAt));
     }
 
-    public function quote(Original $post, UserName $userName, Text $text, Timestamp $createdAt): void
+    /**
+     * Quote-post: Users can repost other user's posts
+     * and leave a comment along with it (like Twitter Quote Tweet)
+     * limited to original and reposts (not quote-posts)
+     */
+    public function quote(Original|Repost $post, UserName $userName, Text $text, Timestamp $createdAt): void
     {
         $this->validate($userName, $createdAt);
         $this->posts->add(new Quote(
@@ -44,7 +44,11 @@ final class Segment
         ));
     }
 
-    public function repost(Original $post, UserName $userName, Timestamp $createdAt): void
+    /**
+     * Reposting: Users can repost other users' posts (like Twitter Retweet),
+     * limited to original posts and quote posts (not reposts)
+     */
+    public function repost(Original|Quote $post, UserName $userName, Timestamp $createdAt): void
     {
         $this->validate($userName, $createdAt);
         $this->posts->add(new Repost(

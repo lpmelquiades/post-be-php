@@ -24,13 +24,13 @@ final class Quote
         if (
             !isset($arr['username'])
             || !isset($arr['text'])
-            || !isset($arr['original_id'])
+            || !isset($arr['target_id'])
         ) {
             throw new \LogicException(ExceptionReference::INVALID_QUOTE->value);
         }
 
         return new static(
-            new Uuid($arr['original_id']),
+            new Uuid($arr['target_id']),
             new UserName($arr['username']),
             new Text($arr['text'])
         );
