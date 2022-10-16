@@ -29,7 +29,7 @@ class InvalidPostTest extends TestCase
 
     public function testWhenQuoteHasNoUserName()
     {
-        $this->expectExceptionMessage(ExceptionReference::INVALID_REPOST->value);
+        $this->expectExceptionMessage(ExceptionReference::INVALID_QUOTE->value);
         $d = new InvalidDataProvider();
         $f = new PostFactory();
         $f->build($d->getInvalidQuoteWithoutUserName(), PostType::QUOTE);

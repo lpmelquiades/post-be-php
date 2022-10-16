@@ -30,7 +30,7 @@ final class InvalidDataProvider
     {
         return '
         {
-            "username": "lee123foo",
+            "usernam": "lee123foo",
             "text": "the lazy fox jumps over brown dog",
             "original_id": "123e4567e89b12d3a456426614174000" 
         }
@@ -67,10 +67,6 @@ final class InvalidDataProvider
         }
         ';
     }
-
-
-
-
 
     public function getInvalidQuoteWithoutOriginalId(): string
     {
