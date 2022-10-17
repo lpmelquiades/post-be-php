@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1666043600">
-  <project timestamp="1666043600">
+<coverage generated="1666044199">
+  <project timestamp="1666044199">
     <file name="/var/www/src/Post/Command/Post.php">
       <class name="Post\Command\Post" namespace="global">
         <metrics complexity="4" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="6" elements="9" coveredelements="7"/>
