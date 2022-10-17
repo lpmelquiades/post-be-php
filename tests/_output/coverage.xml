@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1665943540">
-  <project timestamp="1665943540">
+<coverage generated="1666043600">
+  <project timestamp="1666043600">
     <file name="/var/www/src/Post/Command/Post.php">
       <class name="Post\Command\Post" namespace="global">
         <metrics complexity="4" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="6" elements="9" coveredelements="7"/>
@@ -118,17 +118,11 @@
     </file>
     <file name="/var/www/src/Post/CommandModel/Repost.php">
       <class name="Post\CommandModel\Repost" namespace="global">
-        <metrics complexity="4" methods="4" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="2" elements="9" coveredelements="3"/>
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </class>
       <line num="11" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="17" type="stmt" count="1"/>
-      <line num="20" type="method" name="getCreatedAt" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="22" type="stmt" count="0"/>
-      <line num="25" type="method" name="getUserName" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="30" type="method" name="getType" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="32" type="stmt" count="0"/>
-      <metrics loc="35" ncloc="35" classes="1" methods="4" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="2" elements="9" coveredelements="3"/>
+      <metrics loc="20" ncloc="20" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
     </file>
     <file name="/var/www/src/Post/CommandModel/Segment.php">
       <class name="Post\CommandModel\Segment" namespace="global">
@@ -221,6 +215,6 @@
       <line num="20" type="stmt" count="3"/>
       <metrics loc="23" ncloc="23" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
     </file>
-    <metrics files="17" loc="533" ncloc="516" classes="14" methods="33" coveredmethods="16" conditionals="0" coveredconditionals="0" statements="108" coveredstatements="74" elements="141" coveredelements="90"/>
+    <metrics files="17" loc="518" ncloc="501" classes="14" methods="30" coveredmethods="16" conditionals="0" coveredconditionals="0" statements="105" coveredstatements="74" elements="135" coveredelements="90"/>
   </project>
 </coverage>
