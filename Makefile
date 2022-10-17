@@ -16,6 +16,6 @@ logs:
 
 vendor-clean:
 	sudo rm -R vendor/*
-
+				
 coverage-clean:
 	sudo rm -R tests/_output/coverage*
