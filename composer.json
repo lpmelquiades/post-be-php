@@ -1,8 +1,10 @@
 {
     "autoload": {
         "psr-4": {
-            "Post\\" : "src/",
-            "Post\\Tests\\" : "tests/"
+            "Post\\" : "src/Post/",
+            "User\\" : "src/User/",
+            "Post\\Tests\\" : "tests/Post/",
+            "User\\Tests\\" : "tests/User/"
         }
     },
     "require": {
