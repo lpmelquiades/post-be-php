@@ -15,7 +15,7 @@ final class RepostHandler
     {
     }
 
-    public function handler(Repost $repost): void
+    public function handle(Repost $repost): void
     {
         $now = Timestamp::now();
         $segment = $this->load->segment(

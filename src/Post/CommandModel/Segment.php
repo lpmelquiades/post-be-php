@@ -14,17 +14,25 @@ final class Segment
     private Collection $posts;
 
     public function __construct(
-        public readonly UserName $userName,
-        public readonly Timestamp $begin,
-        public readonly Timestamp $end
+
     ) {
+
         $this->posts = new Collection();
     }
+
+    public function toArray(): array
+    {
+        return [
+            'user_name' => $this->userName->value,
+            'begin' => $this->begin->value,
+            'end' => $this->end->value,
+            'posts' => 
+        ];
+    }
  
-    public function post(UserName $userName, Text $text, Timestamp $createdAt): void
+    public function post(): void
     {
         $this->validate($userName, $createdAt);
-        $this->posts->add(new Original(Uuid::build(), $userName, $text, $createdAt));
     }
 
     /**
@@ -61,12 +69,8 @@ final class Segment
 
     private function validate(UserName $userName, Timestamp $createdAt): void
     {
-        if ($this->posts->count() === static::MAX_COUNT) {
+        if ($this->posts->count() + count === static::MAX_COUNT) {
             throw new \LogicException(ExceptionReference::MAX_LIMIT_REACHED->value);
-        }
-
-        if ($this->userName->value !== $userName->value) {
-            throw new \LogicException(ExceptionReference::UNFIT_FOR_SEGMENT_USERNAME->value);
         }
 
         if (!$this->hasValidCreatedAtForSegment($createdAt)) {

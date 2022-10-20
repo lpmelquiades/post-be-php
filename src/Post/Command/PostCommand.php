@@ -8,7 +8,7 @@ use Post\CommandModel\ExceptionReference;
 use Post\CommandModel\Text;
 use Post\CommandModel\UserName;
 
-final class Post
+final class PostCommand
 {
     public function __construct (
         public readonly UserName $userName,
