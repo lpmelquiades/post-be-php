@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
+use DateTime;
 use Illuminate\Support\Collection;
 
 final class TicketsInUse
@@ -16,10 +17,20 @@ final class TicketsInUse
         public readonly Timestamp $end
     ){
         $this->coll = new Collection();
+        
+        $beginDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->begin->value);
+        $endDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->end->value);
+        if ($beginDT > $endDT) {
+            throw new \LogicException(ExceptionReference::INVALID_CHRONOLOGY->value);
+        }
     }
 
     public function add(Ticket $t): void
     {
+        if ($this->coll->count() === Ticket::MAX_TICKET_NUMBER) {
+            throw new \LogicException(ExceptionReference::POST_LIMIT_REACHED->value);
+        }
+
         if (
             $t->begin->value !== $this->begin->value
             || $t->end->value !== $this->end->value
@@ -32,7 +43,7 @@ final class TicketsInUse
 
     public function next(): Ticket
     {
-        if ($this->coll->count() > Ticket::MAX_TICKET_NUMBER) {
+        if ($this->coll->count() === Ticket::MAX_TICKET_NUMBER) {
             throw new \LogicException(ExceptionReference::POST_LIMIT_REACHED->value);
         }
 

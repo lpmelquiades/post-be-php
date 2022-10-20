@@ -23,6 +23,13 @@ final class Ticket
         if ($this->value < 1) {
             throw new \LogicException(ExceptionReference::INVALID_TICKET->value);
         }
+
+        $beginDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->begin->value);
+        $endDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->end->value);
+        if ($beginDT > $endDT) {
+            throw new \LogicException(ExceptionReference::INVALID_CHRONOLOGY->value);
+        }
+
     }
     
     public function inBetween(Timestamp $at): bool
