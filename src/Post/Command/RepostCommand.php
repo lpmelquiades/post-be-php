@@ -9,16 +9,15 @@ use Post\CommandModel\Timestamp;
 use Post\CommandModel\UserName;
 use Post\CommandModel\Uuid;
 
-final class Repost
+final class RepostCommand
 {
     public function __construct(
-        public readonly Uuid $originalPostId,
-        public readonly UserName $userName,
-        public readonly Timestamp $createdAt
+        public readonly Uuid $targetPostId,
+        public readonly UserName $userName
     ){
     }
 
-    public static function build(string $payload): Repost
+    public static function build(string $payload): static
     {
         $arr = json_decode($payload, true);
         if (!isset($arr['username']) || !isset($arr['target_id'])) {

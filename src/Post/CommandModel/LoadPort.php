@@ -8,5 +8,5 @@ interface LoadPort
 {
     public function ticketsInUse(UserName $userName, Timestamp $begin, Timestamp $end): TicketsInUse;
 
-    public function postType(Uuid $id): ?PostType;
+    public function postType(Uuid $id): PostType;
 }

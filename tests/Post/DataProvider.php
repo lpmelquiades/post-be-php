@@ -21,7 +21,7 @@ final class DataProvider
         return '
         {
             "username": "lee123foo",
-            "original_id": "123e4567e89b12d3a456426614174000" 
+            "target_id": "123e4567e89b12d3a456426614174000" 
         }
         ';
     }
@@ -32,7 +32,7 @@ final class DataProvider
         {
             "username": "lee123foo",
             "text": "the lazy fox jumps over brown dog",
-            "original_id": "123e4567e89b12d3a456426614174000" 
+            "target_id": "123e4567e89b12d3a456426614174000" 
         }
         ';
     }

@@ -19,7 +19,7 @@ final class Quote implements Post
         public readonly Timestamp $createdAt
     ){
         if ($targetPostType->value === PostType::QUOTE->value) {
-            throw new LogicException(ExceptionReference::INVALID_QUOTE->value);
+            throw new LogicException(ExceptionReference::QUOTE_OF_QUOTE->value);
         }
         $this->type = PostType::QUOTE;
     }

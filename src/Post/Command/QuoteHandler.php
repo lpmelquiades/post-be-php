@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Post\Command;
 
-use LogicException;
-use Post\CommandModel\ExceptionReference;
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\PersistencePort;
 use Post\CommandModel\Quote;
@@ -23,12 +21,6 @@ final class QuoteHandler
     public function handle(QuoteCommand $quote): void
     {
         $targetPostType = $this->load->postType($quote->targetPostId);
-
-        if($targetPostType === null)
-        {
-            throw new LogicException(ExceptionReference::INVALID_TARGET_ID->value);
-        }
-
         $now = Timestamp::now();
         $inUse = $this->load->ticketsInUse(
             $quote->userName,

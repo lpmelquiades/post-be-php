@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Post\Integration;
 
+use Post\CommandModel\ExceptionReference;
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\PostType;
 use Post\CommandModel\UserName;
@@ -54,10 +55,16 @@ class MongoLoadAdapter implements LoadPort
         return $tickets;
     }
 
-    public function postType(Uuid $id): ?PostType
+    public function postType(Uuid $id): PostType
     {
         $postColl = $this->client->selectCollection('post_db', 'post');
         $result = $postColl->findOne(['id' => $id->value]);
-        return PostType::tryFrom($result['type']);
+        
+        if($result === null || !isset($result['type']) || PostType::tryFrom($result['type']) === null)
+        {
+            throw new \LogicException(ExceptionReference::INVALID_TARGET_ID->value);
+        }
+
+        return PostType::from($result['type']);
     }
 }
