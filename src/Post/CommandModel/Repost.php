@@ -15,10 +15,18 @@ final class Repost implements Post
         public readonly Uuid $targetPostId,
         public readonly Timestamp $createdAt
     ){
-        if ($targetPostType->value === PostType::REPOST->value) {
+        $this->type = PostType::REPOST;
+
+        if (
+            $targetPostType->value === PostType::REPOST->value
+            || $this->id->value === $this->targetPostId->value
+        ) {
             throw new \LogicException(ExceptionReference::REPOST_OF_REPOST->value);
         }
-        $this->type = PostType::REPOST;
+
+        if(!$this->ticket->inBetween($this->createdAt)) {
+            throw new \LogicException(ExceptionReference::INVALID_CREATED_AT->value);
+        }
     }
 
     public function toArray(): array

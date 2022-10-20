@@ -18,10 +18,18 @@ final class Quote implements Post
         public readonly Text $text,
         public readonly Timestamp $createdAt
     ){
-        if ($targetPostType->value === PostType::QUOTE->value) {
+        $this->type = PostType::QUOTE;
+        
+        if (
+            $targetPostType->value === PostType::QUOTE->value
+            || $this->id->value === $this->targetPostId->value
+        ) {
             throw new LogicException(ExceptionReference::QUOTE_OF_QUOTE->value);
         }
-        $this->type = PostType::QUOTE;
+
+        if(!$this->ticket->inBetween($this->createdAt)) {
+            throw new \LogicException(ExceptionReference::INVALID_CREATED_AT->value);
+        }
     }
 
     public function toArray(): array

@@ -14,7 +14,14 @@ final class Original implements Post
         public readonly Timestamp $createdAt,
     ){
         $this->type = PostType::ORIGINAL;
+
+        if(!$this->ticket->inBetween($this->createdAt)) {
+            throw new \LogicException(ExceptionReference::INVALID_CREATED_AT->value);
+        }
     }
+
+
+
 
     public function toArray(): array
     {
