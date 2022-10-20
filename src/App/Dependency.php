@@ -31,7 +31,7 @@ final class Dependency
     private function getMongoClient(): FactoryDefinitionHelper
     {
         return \DI\factory(function (): \MongoDB\Client {
-            return new \MongoDB\Client('mongodb://root:rootpass@localhost:27017');
+            return new \MongoDB\Client('mongodb://root:rootpass@localhost:27017/?retryWrites=false');
         });
     }
 
