@@ -1,6 +1,7 @@
 <?php
 
 use App\Dependency;
+use Post\Input\CommandExceptionCatch;
 use Post\Input\PostAction;
 use Post\Input\QuoteAction;
 use Post\Input\RepostAction;
@@ -14,8 +15,8 @@ $app->addRoutingMiddleware();
 
 // $app->addErrorMiddleware(true, true, true);
 
-$app->post('/post', PostAction::class);
-$app->post('/quote', QuoteAction::class);
-$app->post('/repost', RepostAction::class);
-$app->get('/posts', SearchAction::class);
+$app->post('/post', PostAction::class)->add(CommandExceptionCatch::class);
+$app->post('/quote', QuoteAction::class)->add(CommandExceptionCatch::class);
+$app->post('/repost', RepostAction::class)->add(CommandExceptionCatch::class);
+$app->get('/posts', SearchAction::class)->add(QueryExceptionCatch::class);
 $app->run();

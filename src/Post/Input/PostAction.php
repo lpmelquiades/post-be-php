@@ -24,6 +24,6 @@ class PostAction
         $payload = $request->getBody()->getContents();
         $h = new PostHandler($this->load, $this->persistence);
         $h->handle(PostCommand::build($payload));
-        return $response;
+        return $response->withStatus(HttpCode::CREATED_201->value);
     }
 }

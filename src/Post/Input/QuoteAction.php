@@ -25,6 +25,6 @@ class QuoteAction
         $payload = $request->getBody()->getContents();
         $h = new QuoteHandler($this->load, $this->persistence);
         $h->handle(QuoteCommand::build($payload));
-        return $response;
+        return $response->withStatus(HttpCode::CREATED_201->value);
     }
 }

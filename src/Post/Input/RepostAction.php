@@ -24,6 +24,6 @@ class RepostAction
         $payload = $request->getBody()->getContents();
         $h = new RepostHandler($this->load, $this->persistence);
         $h->handle(RepostCommand::build($payload));
-        return $response;
+        return $response->withStatus(HttpCode::CREATED_201->value);
     }
 }

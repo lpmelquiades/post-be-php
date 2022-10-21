@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Post\Input;
 
 use Parse\Input\ExceptionContent;
+use Post\CommandModel\ExceptionReference;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
@@ -41,12 +42,20 @@ class CommandExceptionCatch implements MiddlewareInterface
     private function matchHttpCode(\Throwable $e): HttpCode
     {
         return match ($e->getMessage()) {
-            ExceptionReference::INVALID_JSON_FORMAT->value => HttpCode::BAD_REQUEST_400,
-            ExceptionReference::INVALID_DATA_ID_KEY->value,
-            ExceptionReference::INVALID_DATA_ID->value,
+            ExceptionReference::INVALID_TICKET->value,
+            ExceptionReference::INVALID_CHRONOLOGY->value,
+            ExceptionReference::INVALID_CREATED_AT->value,
+            ExceptionReference::INVALID_TIMESTAMP->value => HttpCode::INTERNAL_SERVER_ERROR_500,
+            
+            ExceptionReference::INVALID_JSON_FORMAT->value => HttpCode::BAD_REQUEST_400->value,
+
+            ExceptionReference::INVALID_UUID->value,
+            ExceptionReference::REPOST_OF_REPOST->value,
+            ExceptionReference::QUOTE_OF_QUOTE->value,
+            ExceptionReference::INVALID_TEXT->value,
+            ExceptionReference::POST_LIMIT_REACHED->value,
             ExceptionReference::INVALID_JSON_SCHEMA->value,
-            ExceptionReference::INVALID_PROVIDER->value => HttpCode::UNPROCESSABLE_ENTITY_422,
-            ExceptionReference::PERSISTENCE_FAILURE->value => HttpCode::BAD_GATEWAY_502,
+            ExceptionReference::INVALID_TARGET_ID->value => HttpCode::UNPROCESSABLE_ENTITY_422->value,
             default => HttpCode::INTERNAL_SERVER_ERROR_500
         };
     }
