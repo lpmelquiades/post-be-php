@@ -20,9 +20,6 @@ final class Original implements Post
         }
     }
 
-
-
-
     public function toArray(): array
     {
         return [

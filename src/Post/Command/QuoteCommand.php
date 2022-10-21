@@ -26,7 +26,7 @@ final class QuoteCommand
             || !isset($arr['text'])
             || !isset($arr['target_id'])
         ) {
-            throw new \LogicException(ExceptionReference::INVALID_QUOTE->value);
+            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
         }
 
         return new static(

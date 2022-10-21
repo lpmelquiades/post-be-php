@@ -21,7 +21,7 @@ final class RepostCommand
     {
         $arr = json_decode($payload, true);
         if (!isset($arr['username']) || !isset($arr['target_id'])) {
-            throw new \LogicException(ExceptionReference::INVALID_REPOST->value);
+            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
         }
 
         return new static(

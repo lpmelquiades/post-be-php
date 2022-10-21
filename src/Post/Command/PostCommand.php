@@ -20,7 +20,7 @@ final class PostCommand
     {
         $arr = json_decode($payload, true);
         if (!isset($arr['username']) || !isset($arr['text'])) {
-            throw new \LogicException(ExceptionReference::INVALID_POST->value);
+            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
         }
 
         return new static(
