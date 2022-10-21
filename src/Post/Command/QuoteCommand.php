@@ -21,6 +21,10 @@ final class QuoteCommand
     public static function build(string $payload): static
     {
         $arr = json_decode($payload, true);
+        if ($arr === null) {
+            throw new \LogicException(ExceptionReference::INVALID_JSON_FORMAT->value);
+        }
+        
         if (
             !isset($arr['username'])
             || !isset($arr['text'])
