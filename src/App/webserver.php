@@ -25,7 +25,7 @@ $app->post('/quote', QuoteAction::class)->add(CommandExceptionCatch::class);
 $app->post('/repost', RepostAction::class)->add(CommandExceptionCatch::class);
 $app->get('/posts', SearchAction::class)->add(QueryExceptionCatch::class);
 
-$app->get('/posts/count', SearchAction::class)->add(QueryExceptionCatch::class);
+$app->get('/posts/count', CountAction::class)->add(QueryExceptionCatch::class);
 $app->get('/original/{id}', SearchAction::class)->add(QueryExceptionCatch::class);
 $app->get('/user/{username}', SearchAction::class)->add(QueryExceptionCatch::class);
 $app->run();

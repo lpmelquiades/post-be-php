@@ -18,23 +18,4 @@ final class Search
         public readonly int $page
     ){
     }
-
-    public static function build(string $uriQuery): static
-    {
-        parse_str($uriQuery, $arr);
-        $userNames = new UserNames();
-        if (isset($arr['users'])) {
-            foreach ($arr['users'] as $u) {
-                $userNames->add(new UserName($u));
-            }
-        }
-
-        return new static(
-            $userNames,
-            isset($arr['begin']) ? new Timestamp($arr['begin']): null,
-            isset($arr['end']) ? new Timestamp($arr['end']): null,
-            isset($arr['page_size']) ? intval($arr['page_size']): 10,
-            isset($arr['page']) ? intval($arr['page']): 1    
-        );
-    }
 }

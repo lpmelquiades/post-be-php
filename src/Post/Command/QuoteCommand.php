@@ -17,26 +17,4 @@ final class QuoteCommand
         public readonly Text $text
     ){
     }
-
-    public static function build(string $payload): static
-    {
-        $arr = json_decode($payload, true);
-        if ($arr === null) {
-            throw new \LogicException(ExceptionReference::INVALID_JSON_FORMAT->value);
-        }
-        
-        if (
-            !isset($arr['username'])
-            || !isset($arr['text'])
-            || !isset($arr['target_id'])
-        ) {
-            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
-        }
-
-        return new static(
-            new Uuid($arr['target_id']),
-            new UserName($arr['username']),
-            new Text($arr['text'])
-        );
-    }
 }

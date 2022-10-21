@@ -9,4 +9,6 @@ use Post\Query\Search;
 interface QueryPort
 {
     public function search(Search $s): array;
+
+    // public function count(Search $s): array;
 }
