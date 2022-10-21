@@ -11,6 +11,8 @@ use Post\CommandModel\LoadPort;
 use Post\CommandModel\PersistencePort;
 use Post\Integration\MongoLoadAdapter;
 use Post\Integration\MongoPersistenceAdapter;
+use Post\Integration\MongoQueryAdapter;
+use Post\QueryModel\QueryPort;
 
 final class Dependency
 {
@@ -22,7 +24,8 @@ final class Dependency
         $containerBuilder->addDefinitions([
             \MongoDB\Client::class => $this->getMongoClient(),
             LoadPort::class => $this->getLoadAdapter(),
-            PersistencePort::class => $this->getPersistenceAdapter()
+            PersistencePort::class => $this->getPersistenceAdapter(),
+            QueryPort::class => $this->getQueryAdapter()
             // \Psr\Log\LoggerInterface::class =>$this->getMonolog() 
         ]);
         $this->container = $containerBuilder->build();
@@ -46,6 +49,13 @@ final class Dependency
     {
         return \DI\factory(function (Container $c): PersistencePort {
             return new MongoPersistenceAdapter($c->get(\MongoDB\Client::class));
+        });
+    }
+
+    private function getQueryAdapter(): FactoryDefinitionHelper
+    {
+        return \DI\factory(function (Container $c): QueryPort {
+            return new MongoQueryAdapter($c->get(\MongoDB\Client::class));
         });
     }
 

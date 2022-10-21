@@ -4,6 +4,7 @@ use App\Dependency;
 use Post\Input\PostAction;
 use Post\Input\QuoteAction;
 use Post\Input\RepostAction;
+use Post\Input\SearchAction;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -16,4 +17,5 @@ $app->addRoutingMiddleware();
 $app->post('/post', PostAction::class);
 $app->post('/quote', QuoteAction::class);
 $app->post('/repost', RepostAction::class);
+$app->get('/posts', SearchAction::class);
 $app->run();
