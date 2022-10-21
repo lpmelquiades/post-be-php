@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Post\Query;
 
 use Post\QueryModel\Timestamp;
-use Post\QueryModel\ExceptionReference;
 use Post\QueryModel\UserName;
 use Post\QueryModel\UserNames;
 
@@ -23,13 +22,11 @@ final class Search
     public static function build(string $uriQuery): static
     {
         parse_str($uriQuery, $arr);
-        if (!isset($arr['users'])) {
-            throw new \LogicException(ExceptionReference::INVALID_QUERY->value);
-        }
-
         $userNames = new UserNames();
-        foreach ($arr['users'] as $u) {
-            $userNames->add(new UserName($u));
+        if (isset($arr['users'])) {
+            foreach ($arr['users'] as $u) {
+                $userNames->add(new UserName($u));
+            }
         }
 
         return new static(
