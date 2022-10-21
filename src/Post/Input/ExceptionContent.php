@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Parse\Input;
+namespace Post\Input;
 
 use Post\Input\HttpCode;
 use Psr\Log\LogLevel;

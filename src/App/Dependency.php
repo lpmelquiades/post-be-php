@@ -7,6 +7,10 @@ namespace App;
 use DI\Container;
 use DI\ContainerBuilder;
 use DI\Definition\Helper\FactoryDefinitionHelper;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\PersistencePort;
 use Post\Integration\MongoLoadAdapter;
@@ -25,8 +29,8 @@ final class Dependency
             \MongoDB\Client::class => $this->getMongoClient(),
             LoadPort::class => $this->getLoadAdapter(),
             PersistencePort::class => $this->getPersistenceAdapter(),
-            QueryPort::class => $this->getQueryAdapter()
-            // \Psr\Log\LoggerInterface::class =>$this->getMonolog() 
+            QueryPort::class => $this->getQueryAdapter(),
+            \Psr\Log\LoggerInterface::class =>$this->getMonolog() 
         ]);
         $this->container = $containerBuilder->build();
     }
@@ -59,15 +63,15 @@ final class Dependency
         });
     }
 
-    // private function getMonolog(): FactoryDefinitionHelper {
-    //     return \DI\factory(function () {
-    //         $logger = new Logger('mylog');
+    private function getMonolog(): FactoryDefinitionHelper {
+        return \DI\factory(function () {
+            $logger = new Logger('mylog');
     
-    //         $fileHandler = new StreamHandler(fopen('php://stdout', 'w'), Level::Info);
-    //         $fileHandler->setFormatter(new LineFormatter());
-    //         $logger->pushHandler($fileHandler);
+            $fileHandler = new StreamHandler(fopen('php://stdout', 'w'), Level::Info);
+            $fileHandler->setFormatter(new LineFormatter());
+            $logger->pushHandler($fileHandler);
     
-    //         return $logger;
-    //     });
-    // }
+            return $logger;
+        });
+    }
 }

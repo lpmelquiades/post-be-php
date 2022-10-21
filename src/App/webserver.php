@@ -3,6 +3,7 @@
 use App\Dependency;
 use Post\Input\CommandExceptionCatch;
 use Post\Input\PostAction;
+use Post\Input\QueryExceptionCatch;
 use Post\Input\QuoteAction;
 use Post\Input\RepostAction;
 use Post\Input\SearchAction;

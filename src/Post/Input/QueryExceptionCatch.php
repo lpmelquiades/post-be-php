@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Post\Input;
 
-use Parse\Input\ExceptionContent;
+use Post\Input\ExceptionContent;
 use Post\QueryModel\ExceptionReference;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -41,10 +41,7 @@ class QueryExceptionCatch implements MiddlewareInterface
     private function matchHttpCode(\Throwable $e): HttpCode
     {
         return match ($e->getMessage()) {
-            ExceptionReference::INVALID_DATA_ID_KEY->value,
-            ExceptionReference::INVALID_DATA_ID->value,
-            ExceptionReference::INVALID_PROVIDER->value,
-            ExceptionReference::INVALID_URI_QUERY->value => HttpCode::BAD_REQUEST_400,
+            ExceptionReference::INVALID_QUERY => HttpCode::BAD_REQUEST_400,
             default => HttpCode::INTERNAL_SERVER_ERROR_500
         };
     }

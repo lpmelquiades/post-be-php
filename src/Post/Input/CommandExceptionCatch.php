@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Post\Input;
 
-use Parse\Input\ExceptionContent;
+use Post\Input\ExceptionContent;
 use Post\CommandModel\ExceptionReference;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -47,7 +47,7 @@ class CommandExceptionCatch implements MiddlewareInterface
             ExceptionReference::INVALID_CREATED_AT->value,
             ExceptionReference::INVALID_TIMESTAMP->value => HttpCode::INTERNAL_SERVER_ERROR_500,
             
-            ExceptionReference::INVALID_JSON_FORMAT->value => HttpCode::BAD_REQUEST_400->value,
+            ExceptionReference::INVALID_JSON_FORMAT->value => HttpCode::BAD_REQUEST_400,
 
             ExceptionReference::INVALID_UUID->value,
             ExceptionReference::REPOST_OF_REPOST->value,
@@ -55,7 +55,7 @@ class CommandExceptionCatch implements MiddlewareInterface
             ExceptionReference::INVALID_TEXT->value,
             ExceptionReference::POST_LIMIT_REACHED->value,
             ExceptionReference::INVALID_JSON_SCHEMA->value,
-            ExceptionReference::INVALID_TARGET_ID->value => HttpCode::UNPROCESSABLE_ENTITY_422->value,
+            ExceptionReference::INVALID_TARGET_ID->value => HttpCode::UNPROCESSABLE_ENTITY_422,
             default => HttpCode::INTERNAL_SERVER_ERROR_500
         };
     }
