@@ -65,9 +65,9 @@ final class Dependency
 
     private function getMonolog(): FactoryDefinitionHelper {
         return \DI\factory(function () {
-            $logger = new Logger('mylog');
+            $logger = new Logger('post-be-php');
     
-            $fileHandler = new StreamHandler(fopen('php://stdout', 'w'), Level::Info);
+            $fileHandler = new StreamHandler(fopen('/tmp/app.log', 'w'), Level::Info);
             $fileHandler->setFormatter(new LineFormatter());
             $logger->pushHandler($fileHandler);
     

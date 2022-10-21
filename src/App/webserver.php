@@ -2,10 +2,12 @@
 
 use App\Dependency;
 use Post\Input\CommandExceptionCatch;
+use Post\Input\NotFoundExceptionCatch;
 use Post\Input\PostAction;
 use Post\Input\QueryExceptionCatch;
 use Post\Input\QuoteAction;
 use Post\Input\RepostAction;
+use Post\Input\RequestResponseLogging;
 use Post\Input\SearchAction;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -14,6 +16,8 @@ $dependency = new Dependency();
 $app = \DI\Bridge\Slim\Bridge::create($dependency->container);
 $app->addRoutingMiddleware();
 
+$app->add(NotFoundExceptionCatch::class);
+$app->add(RequestResponseLogging::class);
 // $app->addErrorMiddleware(true, true, true);
 
 $app->post('/post', PostAction::class)->add(CommandExceptionCatch::class);
