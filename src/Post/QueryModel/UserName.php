@@ -19,11 +19,15 @@ final class UserName
     public function __construct(
         public readonly string $value
     ){
-        if (
-            strlen($this->value) > static::MAX_LEN
-            || strlen($this->value) < static::MIN_LEN
-            || !ctype_alnum($this->value)
-        ) {
+        if (strlen($this->value) > static::MAX_LEN) {
+            throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
+        }
+
+        if (strlen($this->value) < static::MIN_LEN) {
+            throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
+        }
+
+        if (!ctype_alnum($this->value)) {
             throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
         }
     }
