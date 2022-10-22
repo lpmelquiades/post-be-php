@@ -21,7 +21,7 @@ final class UserName
     ){
         if (
             strlen($this->value) > static::MAX_LEN
-            || strlen($this->value) <= static::MIN_LEN
+            || strlen($this->value) < static::MIN_LEN
             || !ctype_alnum($this->value)
         ) {
             throw new \LogicException('INVALID_TEXT');

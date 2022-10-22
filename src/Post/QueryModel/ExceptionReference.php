@@ -8,4 +8,5 @@ enum ExceptionReference: String
 {
     case INVALID_QUERY = 'INVALID_QUERY';
     case INVALID_UUID = 'INVALID_UUID';
+    case INVALID_USERNAME = 'INVALID_USERNAME';
 }

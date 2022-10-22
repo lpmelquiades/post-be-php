@@ -13,4 +13,6 @@ enum HttpCode: int
     case INTERNAL_SERVER_ERROR_500 = 500;
     case BAD_GATEWAY_502 = 502;
     case NOT_FOUND_404 = 404;
+    case UNAUTHORIZED_401 = 401;
+
 }
