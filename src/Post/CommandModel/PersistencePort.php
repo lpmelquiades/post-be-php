@@ -6,6 +6,6 @@ namespace Post\CommandModel;
 
 interface PersistencePort
 {
-    // Supports [RQ-04].
+    // Supports [RQ-04]-[RQ-07].
     public function save(NextPost $next): void;
 }

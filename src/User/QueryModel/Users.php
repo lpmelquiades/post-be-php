@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace User\QueryModel;
 
+// Supports [RQ-08]-[RQ-09]
 final class Users
 {
     private array $arr;

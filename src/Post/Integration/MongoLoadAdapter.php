@@ -85,6 +85,7 @@ class MongoLoadAdapter implements LoadPort
         return PostType::from($result['type']);
     }
 
+    // Supports [RQ-07]-[RQ-09]
     public function isValidUser(UserName $userName): bool
     {
         return (new Users())->get(new QueryModelUserName($userName->value)) !== [];

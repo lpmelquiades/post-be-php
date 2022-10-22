@@ -9,6 +9,7 @@ use Post\QueryModel\Uuid;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+// Supports [RQ-01]-[RQ-02]-[RQ-03]-[RQ-05]-[RQ-06].
 class GetPostAction
 {
     public function __construct(

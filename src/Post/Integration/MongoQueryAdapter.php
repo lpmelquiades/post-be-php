@@ -18,6 +18,10 @@ class MongoQueryAdapter implements QueryPort
     ) {
     }
 
+    /**
+     *  Supports [RQ-01]-[RQ-02]-[RQ-03]-[RQ-06].
+     *  Will be used every time the content of an original post need to be loaded. 
+     * */
     public function getPost(Uuid $id): array
     {
         $postColl = $this->client->selectCollection('post_db', 'post');

@@ -10,5 +10,6 @@ interface LoadPort
 
     public function postType(Uuid $id): PostType;
 
+    // Supports [RQ-07]-[RQ-09]
     public function isValidUser(UserName $userName): bool;
 }

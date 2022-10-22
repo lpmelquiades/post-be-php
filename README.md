@@ -9,6 +9,11 @@ Worked around 4 hours each day. Total of 20 hours.
 - 2022 October 21: Most in Post Query Model  & Api-Db-Integration.
 - 2022 October 22: User Control, User Api Endpoint, General Review & Documentation.
 
+I'm used to code microservices that last. 4 hours is what it takes to put together an integration poc without any concerning for business rules.
+
+The most difficult rule here is related to number of posts per day.
+If not well design in the db. It will fail because of concurrent writing.
+
 # Requirements Map
 **RQ means requeriment**
 

@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 namespace Post\CommandModel;
+
+// Supports [RQ-04]-[RQ-07].
 final class Original implements Post
 {
     public readonly PostType $type;

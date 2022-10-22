@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
-/**
- * Only alphanumeric characters can be used for username
- * Maximum 14 characters for username
- * Usernames should be unique values
- */
 
+//Supports [RQ-08]
 final class UserName
 {
 

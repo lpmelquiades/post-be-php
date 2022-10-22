@@ -15,7 +15,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-// Supports [RQ-04]. Relate api inputs to handling.
+// Supports [RQ-04]-[RQ-07]. Relate api inputs to handling.
 class PostAction
 {
     public function __construct(

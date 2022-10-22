@@ -20,18 +20,18 @@ final class PostHandler
     ) {
     }
 
-    // Supports [RQ-04].
+    // Supports [RQ-04]-[RQ-07]-[RQ-09]
     public function handle(PostCommand $command): void
     {
-        // Checks username.
+        // Checks username. // Supports [RQ-07]-[RQ-09]
         if (!$this->load->isValidUser($command->userName)) {
             throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
         }
 
-        // Gets list of ticket for post slots being used now.
+        // A post can only be persisted with a unique ticket related.
         $inUse = $this->load->ticketsInUse($command->userName, new Now());
 
-        // Create original post with next available ticket for todays post slot (MAX 5).
+        // Create original post with next available ticket (MAX 5) per user per day.
         $post = new Original(
             $inUse->next(),
             Uuid::build(),
