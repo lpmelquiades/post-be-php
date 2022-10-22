@@ -10,12 +10,16 @@ use Illuminate\Support\Collection;
 final class TicketsInUse
 {
     private Collection $coll;
+    public readonly Timestamp $begin;
+    public readonly Timestamp $end;
 
     public function __construct(
         public readonly UserName $userName,
-        public readonly Timestamp $begin,
-        public readonly Timestamp $end
+        public readonly Now $now
     ){
+        $this->begin = $now->timestamp->beginningOfDay();
+        $this->end = $now->timestamp->beginningOfTomorrow();
+
         $this->coll = new Collection();
         
         $beginDT = DateTime::createFromFormat(Timestamp::FORMAT, $this->begin->value);

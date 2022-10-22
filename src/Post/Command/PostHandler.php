@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Post\Command;
 
 use Post\CommandModel\LoadPort;
+use Post\CommandModel\NextPost;
+use Post\CommandModel\Now;
 use Post\CommandModel\Original;
 use Post\CommandModel\PersistencePort;
-use Post\CommandModel\Timestamp;
 use Post\CommandModel\Uuid;
 
 final class PostHandler
@@ -20,20 +21,15 @@ final class PostHandler
 
     public function handle(PostCommand $post): void
     {
-        $now = Timestamp::now();
-        $inUse = $this->load->ticketsInUse(
-            $post->userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
-        );
+        $inUse = $this->load->ticketsInUse($post->userName, new Now());
 
         $post = new Original(
             $inUse->next(),
             Uuid::build(),
             $post->text,
-            $now
+            $inUse->now
         );
 
-        $this->persistence->save($post);
+        $this->persistence->save(new NextPost($inUse, $post));
     }
 }

@@ -28,4 +28,19 @@ final class Repost implements Post
             throw new \LogicException(ExceptionReference::INVALID_CREATED_AT->value);
         }
     }
+
+    public function getTicket(): Ticket
+    {
+        return $this->ticket;
+    }
+
+    public function getType(): PostType
+    {
+        return $this->type;
+    }
+
+    public function hasSyncedTicket(): bool
+    {
+        return $this->ticket->inBetween($this->createdAt);
+    }
 }

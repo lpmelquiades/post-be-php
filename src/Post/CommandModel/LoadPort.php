@@ -6,7 +6,7 @@ namespace Post\CommandModel;
 
 interface LoadPort
 {
-    public function ticketsInUse(UserName $userName, Timestamp $begin, Timestamp $end): TicketsInUse;
+    public function ticketsInUse(UserName $userName, Now $now): TicketsInUse;
 
     public function postType(Uuid $id): PostType;
 }

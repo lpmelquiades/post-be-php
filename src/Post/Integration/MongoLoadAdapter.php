@@ -6,6 +6,7 @@ namespace Post\Integration;
 
 use Post\CommandModel\ExceptionReference;
 use Post\CommandModel\LoadPort;
+use Post\CommandModel\Now;
 use Post\CommandModel\PostType;
 use Post\CommandModel\UserName;
 use Post\CommandModel\Timestamp;
@@ -20,15 +21,11 @@ class MongoLoadAdapter implements LoadPort
     ) {
     }
 
-    public function ticketsInUse(UserName $userName, Timestamp $begin, Timestamp $end): TicketsInUse
+    public function ticketsInUse(UserName $userName, Now $now): TicketsInUse
     {
         $postColl = $this->client->selectCollection('post_db', 'post');
-        $cursor = $postColl->find(  
-            [
-                'user_name' => $userName->value,
-                'ticket_begin' => $begin->value,
-                'ticket_end' => $end->value
-            ],
+        $cursor = $postColl->find( 
+            $this->getFilter($userName, $now), 
             ['sort' => ['ticket_count' => 1]]
         );
 
@@ -40,7 +37,7 @@ class MongoLoadAdapter implements LoadPort
         $postsJson = \MongoDB\BSON\toJSON(\MongoDB\BSON\fromPHP($postsBson));
         $postsArr = json_decode($postsJson, true);
 
-        $tickets =  new TicketsInUse($userName, $begin, $end);
+        $tickets =  new TicketsInUse($userName, $now);
         foreach ($postsArr as $post) {
             $tickets->add(
                 new Ticket(
@@ -53,6 +50,15 @@ class MongoLoadAdapter implements LoadPort
         }
 
         return $tickets;
+    }
+
+    private function getFilter(UserName $userName, Now $now): array
+    {
+        return[
+            'user_name' => $userName->value,
+            'ticket_begin' => $now->timestamp->beginningOfDay()->value,
+            'ticket_end' => $now->timestamp->beginningOfTomorrow()->value,
+        ];
     }
 
     public function postType(Uuid $id): PostType

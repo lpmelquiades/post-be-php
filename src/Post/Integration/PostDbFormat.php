@@ -15,7 +15,7 @@ final class PostDbFormat
 {
     public function post(Post $post): array {
 
-        return match($post->type->value) {
+        return match($post->getType()->value) {
             PostType::ORIGINAL->value => $this->original($post),
             PostType::QUOTE->value => $this->quote($post),
             PostType::REPOST->value => $this->repost($post),

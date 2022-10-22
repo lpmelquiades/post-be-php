@@ -6,5 +6,5 @@ namespace Post\CommandModel;
 
 interface PersistencePort
 {
-    public function save(Post $post): void;
+    public function save(NextPost $next): void;
 }
