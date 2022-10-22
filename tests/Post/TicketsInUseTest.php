@@ -6,6 +6,7 @@ namespace Post\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Post\CommandModel\ExceptionReference;
+use Post\CommandModel\Now;
 use Post\CommandModel\Ticket;
 use Post\CommandModel\TicketsInUse;
 use Post\CommandModel\Timestamp;
@@ -17,48 +18,43 @@ class TicketsInUseTest extends TestCase
     {
         $this->expectExceptionMessage(ExceptionReference::POST_LIMIT_REACHED->value);
         $userName = new UserName('lee123foo');
-        $now = Timestamp::now();
-
-        $inUse = new TicketsInUse(
-            $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
-        );
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
 
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             1
         ));
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             2
         ));
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             3
         )); 
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             4
         ));
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             5
         ));
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             5
         ));
     }
@@ -67,42 +63,37 @@ class TicketsInUseTest extends TestCase
     {
         $this->expectExceptionMessage(ExceptionReference::POST_LIMIT_REACHED->value);
         $userName = new UserName('lee123foo');
-        $now = Timestamp::now();
-
-        $inUse = new TicketsInUse(
-            $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
-        );
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
 
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             1
         ));
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             2
         ));
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             3
         )); 
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             4
         ));
         $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             5
         ));
         $inUse->next();
@@ -112,18 +103,13 @@ class TicketsInUseTest extends TestCase
     {
         $this->expectExceptionMessage(ExceptionReference::INVALID_TICKET->value);
         $userName = new UserName('lee123foo');
-        $now = Timestamp::now();
-
-        $inUse = new TicketsInUse(
-            $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
-        );
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
 
         $inUse->add(new Ticket(
             new UserName('notaname'),
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
             1
         ));
         $inUse->next();
@@ -133,19 +119,16 @@ class TicketsInUseTest extends TestCase
     {
         $this->expectExceptionMessage(ExceptionReference::INVALID_TICKET->value);
         $userName = new UserName('lee123foo');
-        $now = Timestamp::now();
         $day = new Timestamp('2015-03-26T10:58:51.010101Z');
-
-        $inUse = new TicketsInUse(
-            $userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
-        );
+        
+        $now = Timestamp::now();
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
 
         $inUse->add(new Ticket(
             $userName,
             $day->beginningOfDay(),
-            $now->beginningOfTomorrow(),
+            $now->timestamp->beginningOfTomorrow(),
             1
         ));
         $inUse->next();
@@ -155,14 +138,9 @@ class TicketsInUseTest extends TestCase
     {
         $this->expectExceptionMessage(ExceptionReference::INVALID_TICKET->value);
         $userName = new UserName('lee123foo');
-        $now = Timestamp::now();
         $day = new Timestamp('2015-03-26T10:58:51.010101Z');
-
-        $inUse = new TicketsInUse(
-            $userName,
-            $day->beginningOfDay(),
-            $now->beginningOfTomorrow()
-        );
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
 
         $inUse->add(new Ticket(
             $userName,
@@ -173,15 +151,154 @@ class TicketsInUseTest extends TestCase
         $inUse->next();
     }
 
-    public function testWhenTicketsInUseHasWrongChronology()
+    public function testWhenTicketsInUseHasNextAs1()
     {
-        $this->expectExceptionMessage(ExceptionReference::INVALID_CHRONOLOGY->value);
         $userName = new UserName('lee123foo');
-        $now = Timestamp::now();
-        new TicketsInUse(
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
+
+        $inUse->add(new Ticket(
             $userName,
-            $now->beginningOfTomorrow(),
-            $now->beginningOfDay()
-        );
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            2
+        ));
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            3
+        )); 
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            5
+        ));
+
+        $next = $inUse->next();
+        $this->assertSame($next->value, 1);
+    }
+
+    public function testWhenTicketsInUseHasNextAs2()
+    {
+        $userName = new UserName('lee123foo');
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
+
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            1
+        ));
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            3
+        )); 
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            5
+        ));
+
+        $next = $inUse->next();
+        $this->assertSame($next->value, 2);
+    }
+
+    public function testWhenTicketsInUseHasNextAs3()
+    {
+        $userName = new UserName('lee123foo');
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
+
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            1
+        ));
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            2
+        )); 
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            5
+        ));
+
+        $next = $inUse->next();
+        $this->assertSame($next->value, 3);
+    }
+
+    public function testWhenTicketsInUseHasNextAs4()
+    {
+        $userName = new UserName('lee123foo');
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
+
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            1
+        ));
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            2
+        )); 
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            3
+        ));
+
+        $next = $inUse->next();
+        $this->assertSame($next->value, 4);
+    }
+
+    public function testWhenTicketsInUseHasNextAs5()
+    {
+        $userName = new UserName('lee123foo');
+        $now = new Now();
+        $inUse = new TicketsInUse($userName, $now);
+
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            1
+        ));
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            2
+        )); 
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            3
+        ));
+        $inUse->add(new Ticket(
+            $userName,
+            $now->timestamp->beginningOfDay(),
+            $now->timestamp->beginningOfTomorrow(),
+            4
+        ));
+
+        $next = $inUse->next();
+        $this->assertSame($next->value, 5);
     }
 }
