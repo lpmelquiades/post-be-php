@@ -23,6 +23,11 @@ class MongoLoadAdapter implements LoadPort
     ) {
     }
 
+    /** Supports [RQ-11].
+    * Now and TicketsInUse are required to get the next persistence ticket for a post.
+    * This feature is enforced in the database with unique index contraints
+    * !!IMPORTANT!! That a look in the database init file at ./local/mongo/init.js
+    */
     public function ticketsInUse(UserName $userName, Now $now): TicketsInUse
     {
         $postColl = $this->client->selectCollection('post_db', 'post');

@@ -42,6 +42,12 @@ final class Dependency
         });
     }
 
+
+    /**
+     * Supports [RQ-09].
+     * Ports & Adapters pattern is being used.
+     * This adapter will be injected to solve mongo db load of data during command handling.
+     */
     private function getLoadAdapter(): FactoryDefinitionHelper
     {
         return \DI\factory(function (Container $c): LoadPort {

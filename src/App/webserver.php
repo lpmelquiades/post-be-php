@@ -22,13 +22,13 @@ $app->addRoutingMiddleware();
 $app->add(NotFoundExceptionCatch::class);
 $app->add(RequestResponseLogging::class);
 
-// Supports [RQ-04]-[RQ-07]-[RQ-09].
+// Supports [RQ-04]-[RQ-07]-[RQ-09]-[RQ-10].
 $app->post('/post', PostAction::class)->add(CommandExceptionCatch::class);
 
-// Supports [RQ-09]
+// Supports [RQ-09]-[RQ-10]
 $app->post('/quote', QuoteAction::class)->add(CommandExceptionCatch::class);
 
-// Supports [RQ-09]
+// Supports [RQ-09]-[RQ-10]
 $app->post('/repost', RepostAction::class)->add(CommandExceptionCatch::class);
 
 

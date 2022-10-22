@@ -6,6 +6,10 @@ namespace Post\CommandModel;
 
 interface LoadPort
 {
+    /** Supports [RQ-11]. 
+    * Now and TicketsInUse are required to get
+    * the next persistence ticket for a post.
+    */
     public function ticketsInUse(UserName $userName, Now $now): TicketsInUse;
 
     public function postType(Uuid $id): PostType;

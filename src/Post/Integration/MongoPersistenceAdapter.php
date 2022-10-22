@@ -14,7 +14,7 @@ class MongoPersistenceAdapter implements PersistencePort
     ) {
     }
 
-    /** Supports [RQ-04].
+    /** Supports [RQ-04]-[RQ-07]-[RQ-10].
      * Every document insert is atomic
      * However if you need to insert more than one document.
      * You will need transactions.

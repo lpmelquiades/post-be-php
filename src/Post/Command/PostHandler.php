@@ -20,7 +20,7 @@ final class PostHandler
     ) {
     }
 
-    // Supports [RQ-04]-[RQ-07]-[RQ-09]
+    // Supports [RQ-04]-[RQ-07]-[RQ-09]-[RQ-10]
     public function handle(PostCommand $command): void
     {
         // Checks username. // Supports [RQ-07]-[RQ-09]
@@ -31,7 +31,7 @@ final class PostHandler
         // A post can only be persisted with a unique ticket related.
         $inUse = $this->load->ticketsInUse($command->userName, new Now());
 
-        // Create original post with next available ticket (MAX 5) per user per day.
+        // Creates original post with next available ticket (MAX 5) per user per day.
         $post = new Original(
             $inUse->next(),
             Uuid::build(),
