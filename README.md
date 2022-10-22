@@ -9,27 +9,13 @@ Worked around 4 hours each day. Total of 20 hours.
 - 2022 October 21: Most in Post Query Model  & Api-Db-Integration.
 - 2022 October 22: User Control, User Api Endpoint, General Review & Documentation.
 
-## Summary
-[Project Choices] (# Project Choices)
-
-
-# Project Choices
-Things I try to have in mind when coding a microservice/api.
-- Low-Coupling,
-- High-Cohesion,
-- CQRS,
-- Onion-Layers,
-- Ports&Adapters-Dependency-Inversion).
-- SOLID
-- OO-Design-Patterns
-- DDD-VO, DDD-AGG
-
-# Requirements & Features
+# Requirements Map
 **RQ means requeriment**
 
 **Please!!!!** Search the project for RQ-01, RQ-02 to understand where each requirement is being supported.
 
 ## Homepage
+
 **[RQ-01]** The homepage, by default, will show a feed of posts (including reposts and quote posts), starting with the latest 10 posts. Older posts are loaded on-demand on chunks of 10 posts whenever the user scrolling reaches the bottom of the page.
 
 **[RQ-02]** There is a toggle switch "All / Only mine" that allows you to switch between seeing all posts and just posts you wrote. For both views, all kinds of posts are expected on the feed (original posts, reposts, and quote posts).
@@ -49,19 +35,29 @@ Things I try to have in mind when coding a microservice/api.
 
 **[RQ-07]** New posts can be written from this page: for this assessment, when writing a post from the profile screen, the profile user should be set as the author of the new content.
 
-**[FT-01]** 
-- Endpoints (GET /posts 200) & (GET /posts/count 200).
-- Supports **[RQ-01]-[RQ-02]-[RQ-03]**.
-- Endpoint (GET /posts 200) solves a search of posts filtered by
-users[], begin timestamp, end timestamp, page and pagesize.
-- The endpoint (GET /posts 200) does not include the total of pages. The cost of that operation might be high, so there is separeted endpoint for that.
-- Endpoint (GET /posts/count 200) solves count of posts filtered by users[], begin timestamp, end timestamp.
-- MongoDb-4.0 is being used. It is equivalent to AWS-DocumentDB current supported version.
-- Endpoint (GET /posts 200) is querying using aggregate-push-slice pipeline with root push and slice for pagination.
-- It seems aggregate-push-slice is more performatic when compared to find-skip-limit. A load test could bring more conclusive data about it. 
+## User
 
-**[FT-02]**
-- Endpoint (POST /post 201).
-- Supports **[RQ-04]**.
-- 
+**[RQ-08]** User Validation
+- Only alphanumeric characters can be used for username
+- Maximum 14 characters for username
+- Usernames should be unique values
+
+**[RQ-09]** User Control
+- Do not build authentication
+- Do not build CRUD for users (registration and sign-in will be handled by a different service, the user model should be part of your data modeling tho. You can seed the database with 4 users to help the reviewer demo your solution)
+- When/if necessary to make your application function, you may hard-code the user. For example, you may need to do this to implement creating new posts.
+
+## Posts
+
+**[RQ-10]** Posts are the equivalent of Twitter's tweets. They are text-only, user-generated content. Users can write original posts and interact with other users' posts by reposting or quote-posting. For this project, you should implement all three — original posts, reposts, and quote-posting
+
+**[RQ-11]**  A user is not allowed to post more than 5 posts in one day (including reposts and quote posts)
+
+**[RQ-12]** Posts can have a maximum of 777 characters
+
+**[RQ-13]** Post Handling Users cannot update or delete their posts
+
+**[RQ-14]** Post Reposting: Users can repost other users' posts (like Twitter Retweet), limited to original posts and quote posts (not reposts)
+
+**[RQ-15]** Quote-post: Users can repost other user's posts and leave a comment along with it (like Twitter Quote Tweet) limited to original and reposts (not quote-posts)
 

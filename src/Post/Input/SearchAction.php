@@ -12,6 +12,10 @@ use Post\QueryModel\UserNames;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+/** 
+ *  Supports [RQ-01].
+ *  Relates api input with search query.
+ */
 class SearchAction
 {
     public function __construct(

@@ -9,8 +9,10 @@ use Post\Query\Search;
 
 interface QueryPort
 {
+    // Supports [RQ-01].
     public function search(Search $s): array;
 
+    // Supports [RQ-01].
     public function count(Count $s): array;
 
     public function getPost(Uuid $id): array;

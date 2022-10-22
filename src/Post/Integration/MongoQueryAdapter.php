@@ -27,7 +27,16 @@ class MongoQueryAdapter implements QueryPort
         unset($arr['_id']);
         return $arr;
     }
-
+ 
+    /**
+     * Supports [RQ-01].
+     * It is MongoDB 4.0 equivalent to AWS-DocumentDB current supported version. 
+     * by users[], begin timestamp, end timestamp.
+     * It is querying using aggregate-root-push-slice pipeline for pagination.
+     * It seems aggregate-root-push-slice is more performatic
+     * when compared to find-skip-limit.
+     * A load test could bring more conclusive data about it. 
+     */
     public function count(Count $s): array
     {
         $postColl = $this->client->selectCollection('post_db', 'post');
@@ -53,6 +62,15 @@ class MongoQueryAdapter implements QueryPort
         return $arr;
     }
 
+    
+    /**
+     * Supports [RQ-01].
+     * It is MongoDB 4.0 equivalent to AWS-DocumentDB current supported version. 
+     * Solves a search of posts filtered by 
+     * users[], begin timestamp, end timestamp, page and pagesize.
+     * Does not include the total of pages. The cost of that operation might be high,
+     * so there is separeted function for that.
+     */
     public function search(Search $s): array
     {
         $postColl = $this->client->selectCollection('post_db', 'post');

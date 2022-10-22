@@ -56,6 +56,11 @@ final class Dependency
         });
     }
 
+    /**
+     * Supports [RQ-01].
+     * Ports & Adapters pattern is being used.
+     * This adapter will be injected to solve mongo db queries.
+     */
     private function getQueryAdapter(): FactoryDefinitionHelper
     {
         return \DI\factory(function (Container $c): QueryPort {
