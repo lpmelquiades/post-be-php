@@ -7,6 +7,7 @@ namespace Post\CommandModel;
 enum ExceptionReference: String
 {
     case INVALID_TICKET = 'INVALID_TICKET';
+    case INVALID_POST_TYPE = 'INVALID_POST_TYPE';
     case INVALID_CHRONOLOGY = 'INVALID_CHRONOLOGY';
     case INVALID_CREATED_AT = 'INVALID_CREATED_AT';
     case INVALID_JSON_FORMAT = 'INVALID_JSON_FORMAT';

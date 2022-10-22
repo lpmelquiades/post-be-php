@@ -28,18 +28,4 @@ final class Repost implements Post
             throw new \LogicException(ExceptionReference::INVALID_CREATED_AT->value);
         }
     }
-
-    public function toArray(): array
-    {
-        return [
-            'type' => $this->type->value,
-            'id' => $this->id->value,
-            'target_id' => $this->targetPostId->value,
-            'created_at' => $this->createdAt->value,
-            'user_name' => $this->ticket->userName->value,
-            'ticket_begin' => $this->ticket->begin->value,
-            'ticket_end' => $this->ticket->end->value,
-            'ticket_count' => $this->ticket->value,
-        ];
-    }
 }

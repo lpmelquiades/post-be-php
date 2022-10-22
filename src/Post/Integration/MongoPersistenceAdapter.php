@@ -16,7 +16,9 @@ class MongoPersistenceAdapter implements PersistencePort
 
     public function save(Post $post): void
     {
+        $format =  new PostDbFormat();
         $postColl = $this->client->selectCollection('post_db', 'post');
-        $postColl->insertOne($post->toArray());
+        
+        $postColl->insertOne($format->post($post));
     }
 }

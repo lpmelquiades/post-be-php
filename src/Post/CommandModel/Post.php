@@ -6,5 +6,4 @@ namespace Post\CommandModel;
 
 interface Post
 {
-    public function toArray(): array;
 }
