@@ -5,23 +5,31 @@ declare(strict_types=1);
 namespace Post\Command;
 
 use Post\CommandModel\LoadPort;
-use Post\CommandModel\Timestamp;
+use Post\CommandModel\NextPost;
+use Post\CommandModel\Now;
+use Post\CommandModel\Original;
+use Post\CommandModel\PersistencePort;
+use Post\CommandModel\Uuid;
 
 final class PostHandler
 {
-    public function __construct(private LoadPort $load)
-    {
+    public function __construct(
+        private LoadPort $load,
+        private PersistencePort $persistence
+    ){
     }
 
-    public function handler(Post $post): void
+    public function handle(PostCommand $post): void
     {
-        $now = Timestamp::now();
-        $segment = $this->load->segment(
-            $post->userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
+        $inUse = $this->load->ticketsInUse($post->userName, new Now());
+
+        $post = new Original(
+            $inUse->next(),
+            Uuid::build(),
+            $post->text,
+            $inUse->now
         );
 
-        $segment->post($post->userName, $post->text, $now);
+        $this->persistence->save(new NextPost($inUse, $post));
     }
 }

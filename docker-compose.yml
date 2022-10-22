@@ -6,7 +6,7 @@ services:
     container_name: mongo40
     network_mode: "host"
     volumes:
-      - ~/volume/mongodb:/data/db 
+      - ~/post-be-php-volume/mongodb:/data/db
       - ./local/mongo/init.js:/docker-entrypoint-initdb.d/init.js:ro
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root

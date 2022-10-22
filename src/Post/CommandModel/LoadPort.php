@@ -6,7 +6,7 @@ namespace Post\CommandModel;
 
 interface LoadPort
 {
-    public function segment(UserName $userName, Timestamp $begin, Timestamp $end): Segment;
+    public function ticketsInUse(UserName $userName, Now $now): TicketsInUse;
 
-    public function original(Uuid $quote): Original;
+    public function postType(Uuid $id): PostType;
 }

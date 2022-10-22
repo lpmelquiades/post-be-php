@@ -5,77 +5,66 @@ declare(strict_types=1);
 namespace Post\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Post\Command\Post;
-use Post\Command\Quote;
-use Post\Command\Repost;
+use Post\CommandModel\ExceptionReference;
+use Post\CommandModel\NextPost;
+use Post\CommandModel\Now;
 use Post\CommandModel\Original;
-use Post\CommandModel\Segment;
+use Post\CommandModel\PostType;
 use Post\CommandModel\Text;
+use Post\CommandModel\Ticket;
 use Post\CommandModel\Timestamp;
 use Post\CommandModel\UserName;
 use Post\CommandModel\Uuid;
+use Post\Integration\PostDbFormat;
 
 class PostTest extends TestCase
 {
     public function testWhenOriginalIsValid()
     {
-        $d =  new DataProvider();
-        $command = Post::build($d->getPost());
-        $now = Timestamp::now();
-        
-        $segment = new Segment(
-            $command->userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
+        $inUse = (new Data())->getTicketsInUse();
+        $userName = new UserName('lee123foo');
+        $text =  new Text('the lazy fox jumps over brown dog');
+        $now = $inUse->now;
+        $id = Uuid::build();
+        $original = new Original(
+            $inUse->next(),
+            $id,
+            $text,
+            $now
         );
-
-        $segment->post($command->userName, $command->text, $now);
-        $this->assertSame(1, $segment->count());
+        $nextPost =  new NextPost($inUse, $original);
+        $actual = (new PostDbFormat())->post($nextPost->post);
+        $expected = [
+            'type' => PostType::ORIGINAL->value,
+            'id' => $id->value,
+            'text' => $text->value,
+            'created_at' => $now->timestamp->value,
+            'user_name' => $userName->value,
+            'ticket_begin' => $now->timestamp->beginningOfDay()->value,
+            'ticket_end' => $now->timestamp->beginningOfTomorrow()->value,
+            'ticket_count' => 4
+        ];
+        $this->assertSame($expected, $actual);
     }
 
-    public function testWhenRepostIsValid()
+    public function testWhenOriginalHasInvalidCreatedAt()
     {
-        $d =  new DataProvider();
-        $command = Repost::build($d->getRepost());
-        $now = Timestamp::now();
-        
-        $segment = new Segment(
-            $command->userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
+        $this->expectExceptionMessage(ExceptionReference::INVALID_CREATED_AT->value);
+        $userName = new UserName('lee123foo');
+        $text =  new Text('the lazy fox jumps over brown dog');
+        $day = new Timestamp('2015-03-26T10:58:51.010101Z');
+        $id = Uuid::build();
+        new Original(
+            new Ticket(
+                $userName,
+                $day->beginningOfDay(),
+                $day->beginningOfTomorrow(),
+                1
+            ),
+            $id,
+            $text,
+            new Now()
         );
-
-        $segment->repost(
-            new Original(
-                new Uuid($command->originalPostId->value),
-                new UserName($command->userName->value),
-                new Text('what a lotta love'),
-                new Timestamp('2015-03-26T10:58:51.010101Z')
-            ), $command->userName, $now
-        );
-        $this->assertSame(1, $segment->count());
     }
 
-    public function testWhenQuoteIsValid()
-    {
-        $d =  new DataProvider();
-        $command = Quote::build($d->getQuote());
-        $now = Timestamp::now();
-        
-        $segment = new Segment(
-            $command->userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
-        );
-
-        $segment->quote(
-            new Original(
-                new Uuid($command->originalPostId->value),
-                new UserName($command->userName->value),
-                new Text('what a lotta love'),
-                new Timestamp('2015-03-26T10:58:51.010101Z')
-            ), $command->userName, new Text('cheers!!!!'), $now
-        );
-        $this->assertSame(1, $segment->count());
-    }
 }

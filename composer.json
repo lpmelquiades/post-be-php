@@ -1,6 +1,7 @@
 {
     "autoload": {
         "psr-4": {
+            "App\\" : "src/App/",
             "Post\\" : "src/Post/",
             "User\\" : "src/User/",
             "Post\\Tests\\" : "tests/Post/",
@@ -13,7 +14,9 @@
         "php-di/php-di": "^6",
         "slim/psr7": "^1",
         "slim/twig-view": "^3.3",
-        "ramsey/uuid": "^4"
+        "ramsey/uuid": "^4",
+        "mongodb/mongodb": "^1.13",
+        "monolog/monolog": "^3.2"
     },
     "require-dev": {
         "symfony/console": "^5",

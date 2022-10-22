@@ -5,25 +5,36 @@ declare(strict_types=1);
 namespace Post\Command;
 
 use Post\CommandModel\LoadPort;
-use Post\CommandModel\Timestamp;
+use Post\CommandModel\NextPost;
+use Post\CommandModel\Now;
+use Post\CommandModel\PersistencePort;
+use Post\CommandModel\Quote;
 use Post\CommandModel\Uuid;
 
 final class QuoteHandler
 {
-    public function __construct(private LoadPort $load)
-    {
+    public function __construct(
+        private LoadPort $load,
+        private PersistencePort $persistence
+    ) {
     }
 
-    public function handler(Quote $quote): void
+    public function handle(QuoteCommand $quote): void
     {
-        $now = Timestamp::now();
-        $segment = $this->load->segment(
-            $quote->userName,
-            $now->beginningOfDay(),
-            $now->beginningOfTomorrow()
+        $targetPostType = $this->load->postType($quote->targetPostId);
+        $inUse = $this->load->ticketsInUse(
+            $quote->userName, new Now()
+        );
+        
+        $post = new Quote(
+            $targetPostType,
+            $inUse->next(),
+            Uuid::build(),
+            $quote->targetPostId,
+            $quote->text,
+            $inUse->now
         );
 
-        $original = $this->load->original($quote->originalPostId);
-        $segment->quote($original, $quote->userName, $quote->text, $now);
+        $this->persistence->save(new NextPost($inUse, $post));
     }
 }

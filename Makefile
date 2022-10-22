@@ -19,3 +19,7 @@ vendor-clean:
 				
 coverage-clean:
 	sudo rm -R tests/_output/coverage*
+
+#prune is good way of cleaning all images builds before doing it again
+prune:
+	docker system prune
