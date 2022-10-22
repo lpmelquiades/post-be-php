@@ -22,7 +22,6 @@ $app->addRoutingMiddleware();
 
 $app->add(NotFoundExceptionCatch::class);
 $app->add(RequestResponseLogging::class);
-$app->add(UserAuth::class);
 // $app->addErrorMiddleware(true, true, true);
 
 $app->post('/post', PostAction::class)->add(CommandExceptionCatch::class);

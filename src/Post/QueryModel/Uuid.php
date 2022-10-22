@@ -10,7 +10,11 @@ final class Uuid
         public readonly string $value
     ) {
         preg_match('/[0-9a-fA-F]{32}/', $this->value, $matched);
-        if (!isset($matched[0]) || $matched[0] !== $this->value){
+        if (!isset($matched[0])){
+            throw new \LogicException(ExceptionReference::INVALID_UUID->value);
+        }
+
+        if ($matched[0] !== $this->value){
             throw new \LogicException(ExceptionReference::INVALID_UUID->value);
         }
     }

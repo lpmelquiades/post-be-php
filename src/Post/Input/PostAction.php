@@ -37,7 +37,11 @@ class PostAction
             throw new \LogicException(ExceptionReference::INVALID_JSON_FORMAT->value);
         }
 
-        if (!isset($arr['username']) || !isset($arr['text'])) {
+        if (!isset($arr['username'])) {
+            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
+        }
+
+        if (!isset($arr['text'])) {
             throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
         }
 
