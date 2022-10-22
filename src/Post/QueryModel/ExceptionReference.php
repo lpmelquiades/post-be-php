@@ -7,4 +7,5 @@ namespace Post\QueryModel;
 enum ExceptionReference: String
 {
     case INVALID_QUERY = 'INVALID_QUERY';
+    case INVALID_UUID = 'INVALID_UUID';
 }

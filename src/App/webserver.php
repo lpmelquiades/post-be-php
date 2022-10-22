@@ -3,6 +3,7 @@
 use App\Dependency;
 use Post\Input\CommandExceptionCatch;
 use Post\Input\CountAction;
+use Post\Input\GetPostAction;
 use Post\Input\NotFoundExceptionCatch;
 use Post\Input\PostAction;
 use Post\Input\QueryExceptionCatch;
@@ -27,6 +28,6 @@ $app->post('/repost', RepostAction::class)->add(CommandExceptionCatch::class);
 $app->get('/posts', SearchAction::class)->add(QueryExceptionCatch::class);
 
 $app->get('/posts/count', CountAction::class)->add(QueryExceptionCatch::class);
-$app->get('/original/{id}', SearchAction::class)->add(QueryExceptionCatch::class);
+$app->get('/post/{id}', GetPostAction::class)->add(QueryExceptionCatch::class);
 $app->get('/user/{username}', SearchAction::class)->add(QueryExceptionCatch::class);
 $app->run();

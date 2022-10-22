@@ -12,4 +12,6 @@ interface QueryPort
     public function search(Search $s): array;
 
     public function count(Count $s): array;
+
+    public function getPost(Uuid $id): array;
 }

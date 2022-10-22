@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Post\CommandModel;
+namespace Post\QueryModel;
 
 final class Uuid
 {

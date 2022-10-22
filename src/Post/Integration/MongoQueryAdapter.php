@@ -9,12 +9,23 @@ use Post\Query\Search;
 use Post\QueryModel\QueryPort;
 use Post\QueryModel\Timestamp;
 use Post\QueryModel\UserNames;
+use Post\QueryModel\Uuid;
 
 class MongoQueryAdapter implements QueryPort
 {
     public function __construct(
         public readonly \MongoDB\Client $client
     ) {
+    }
+
+    public function getPost(Uuid $id): array
+    {
+        $postColl = $this->client->selectCollection('post_db', 'post');
+        $bson = $postColl->findOne(['id' => $id->value]);
+        $json = \MongoDB\BSON\toJSON(\MongoDB\BSON\fromPHP($bson));
+        $arr = json_decode($json, true);
+        unset($arr['_id']);
+        return $arr;
     }
 
     public function count(Count $s): array

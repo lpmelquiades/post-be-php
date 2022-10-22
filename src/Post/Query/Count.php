@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Post\Query;
 
 use Post\QueryModel\Timestamp;
-use Post\QueryModel\UserName;
 use Post\QueryModel\UserNames;
 
 final class Count
