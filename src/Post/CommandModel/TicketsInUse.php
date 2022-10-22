@@ -35,13 +35,18 @@ final class TicketsInUse
             throw new \LogicException(ExceptionReference::POST_LIMIT_REACHED->value);
         }
 
-        if (
-            $t->begin->value !== $this->begin->value
-            || $t->end->value !== $this->end->value
-            || $t->userName->value !== $this->userName->value
-        ) {
+        if ($t->begin->value !== $this->begin->value) {
             throw new \LogicException(ExceptionReference::INVALID_TICKET->value);
         }
+
+        if ($t->end->value !== $this->end->value) {
+            throw new \LogicException(ExceptionReference::INVALID_TICKET->value);
+        }
+
+        if ($t->userName->value !== $this->userName->value) {
+            throw new \LogicException(ExceptionReference::INVALID_TICKET->value);
+        }
+
         $this->coll->put($t->value, $t);
     }
 

@@ -13,6 +13,8 @@ use Post\CommandModel\Timestamp;
 use Post\CommandModel\Ticket;
 use Post\CommandModel\TicketsInUse;
 use Post\CommandModel\Uuid;
+use User\QueryModel\UserName as QueryModelUserName;
+use User\QueryModel\Users;
 
 class MongoLoadAdapter implements LoadPort
 {
@@ -66,11 +68,25 @@ class MongoLoadAdapter implements LoadPort
         $postColl = $this->client->selectCollection('post_db', 'post');
         $result = $postColl->findOne(['id' => $id->value]);
         
-        if($result === null || !isset($result['type']) || PostType::tryFrom($result['type']) === null)
+        if ($result === null) {
+            throw new \LogicException(ExceptionReference::INVALID_TARGET_ID->value);
+        }
+
+        if (!isset($result['type']))
+        {
+            throw new \LogicException(ExceptionReference::INVALID_TARGET_ID->value);
+        }
+
+        if(PostType::tryFrom($result['type']) === null)
         {
             throw new \LogicException(ExceptionReference::INVALID_TARGET_ID->value);
         }
 
         return PostType::from($result['type']);
+    }
+
+    public function isValidUser(UserName $userName): bool
+    {
+        return (new Users())->get(new QueryModelUserName($userName->value)) !== [];
     }
 }

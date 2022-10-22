@@ -19,10 +19,11 @@ final class Repost implements Post
         $this->createdAt = $now->timestamp;
         $this->type = PostType::REPOST;
 
-        if (
-            $targetPostType->value === PostType::REPOST->value
-            || $this->id->value === $this->targetPostId->value
-        ) {
+        if ($targetPostType->value === PostType::REPOST->value) {
+            throw new \LogicException(ExceptionReference::REPOST_OF_REPOST->value);
+        }
+
+        if ($this->id->value === $this->targetPostId->value) {
             throw new \LogicException(ExceptionReference::REPOST_OF_REPOST->value);
         }
 

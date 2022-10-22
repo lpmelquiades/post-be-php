@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Post\QueryModel;
+namespace User\QueryModel;
 
 /**
  * Only alphanumeric characters can be used for username

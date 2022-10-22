@@ -38,7 +38,11 @@ class RepostAction
             throw new \LogicException(ExceptionReference::INVALID_JSON_FORMAT->value);
         }
 
-        if (!isset($arr['username']) || !isset($arr['target_id'])) {
+        if (!isset($arr['username'])) {
+            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
+        }
+
+        if (!isset($arr['target_id'])) {
             throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
         }
 

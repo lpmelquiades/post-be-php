@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Post\Input;
 
-use Post\Command\Quote;
 use Post\Command\QuoteCommand;
 use Post\Command\QuoteHandler;
 use Post\CommandModel\ExceptionReference;
@@ -39,11 +38,15 @@ class QuoteAction
             throw new \LogicException(ExceptionReference::INVALID_JSON_FORMAT->value);
         }
         
-        if (
-            !isset($arr['username'])
-            || !isset($arr['text'])
-            || !isset($arr['target_id'])
-        ) {
+        if (!isset($arr['username'])) {
+            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
+        }
+
+        if (!isset($arr['text'])) {
+            throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
+        }
+
+        if (!isset($arr['target_id'])) {
             throw new \LogicException(ExceptionReference::INVALID_JSON_SCHEMA->value);
         }
 
