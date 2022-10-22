@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Post\Command;
 
+use Post\CommandModel\ExceptionReference;
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\NextPost;
 use Post\CommandModel\Now;
@@ -19,11 +20,14 @@ final class RepostHandler
     ) {
     }
 
-    public function handle(RepostCommand $quote): void
+    public function handle(RepostCommand $command): void
     {
-        $targetPostType = $this->load->postType($quote->targetPostId);
+        if (!$this->load->isValidUser($command->userName)) {
+            throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
+        }
+        $targetPostType = $this->load->postType($command->targetPostId);
         $inUse = $this->load->ticketsInUse(
-            $quote->userName,
+            $command->userName,
             new Now()
         );
         
@@ -31,7 +35,7 @@ final class RepostHandler
             $targetPostType,
             $inUse->next(),
             Uuid::build(),
-            $quote->targetPostId,
+            $command->targetPostId,
             $inUse->now
         );
 

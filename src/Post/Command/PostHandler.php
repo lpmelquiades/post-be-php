@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Post\Command;
 
+use Post\CommandModel\ExceptionReference;
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\NextPost;
 use Post\CommandModel\Now;
@@ -19,14 +20,18 @@ final class PostHandler
     ){
     }
 
-    public function handle(PostCommand $post): void
+    public function handle(PostCommand $command): void
     {
-        $inUse = $this->load->ticketsInUse($post->userName, new Now());
+        if (!$this->load->isValidUser($command->userName)) {
+            throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
+        }
+        
+        $inUse = $this->load->ticketsInUse($command->userName, new Now());
 
         $post = new Original(
             $inUse->next(),
             Uuid::build(),
-            $post->text,
+            $command->text,
             $inUse->now
         );
 

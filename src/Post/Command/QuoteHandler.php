@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Post\Command;
 
+use Post\CommandModel\ExceptionReference;
 use Post\CommandModel\LoadPort;
 use Post\CommandModel\NextPost;
 use Post\CommandModel\Now;
@@ -19,19 +20,23 @@ final class QuoteHandler
     ) {
     }
 
-    public function handle(QuoteCommand $quote): void
+    public function handle(QuoteCommand $command): void
     {
-        $targetPostType = $this->load->postType($quote->targetPostId);
+        if (!$this->load->isValidUser($command->userName)) {
+            throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
+        }
+
+        $targetPostType = $this->load->postType($command->targetPostId);
         $inUse = $this->load->ticketsInUse(
-            $quote->userName, new Now()
+            $command->userName, new Now()
         );
         
         $post = new Quote(
             $targetPostType,
             $inUse->next(),
             Uuid::build(),
-            $quote->targetPostId,
-            $quote->text,
+            $command->targetPostId,
+            $command->text,
             $inUse->now
         );
 
