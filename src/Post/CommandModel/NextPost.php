@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
-use Exception;
-
 final class NextPost
 {
-    public function __construct (
+    public function __construct(
         TicketsInUse $inUse,
         public readonly Post $post
-    ){
+    ) {
         if (
             $inUse->begin->value !== $this->post->getTicket()->begin->value
             || $inUse->end->value !== $this->post->getTicket()->end->value

@@ -7,14 +7,16 @@ namespace Post\CommandModel;
 final class Repost implements Post
 {
     public readonly PostType $type;
+    public readonly Timestamp $createdAt;
 
     public function __construct(
         public readonly PostType $targetPostType,
         public readonly Ticket $ticket,
         public readonly Uuid $id,
         public readonly Uuid $targetPostId,
-        public readonly Timestamp $createdAt
+        Now $now
     ){
+        $this->createdAt = $now->timestamp;
         $this->type = PostType::REPOST;
 
         if (
