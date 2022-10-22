@@ -2,6 +2,7 @@
 
 use App\Dependency;
 use Post\Input\CommandExceptionCatch;
+use Post\Input\CountAction;
 use Post\Input\NotFoundExceptionCatch;
 use Post\Input\PostAction;
 use Post\Input\QueryExceptionCatch;

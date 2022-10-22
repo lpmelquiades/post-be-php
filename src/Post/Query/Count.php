@@ -16,21 +16,4 @@ final class Count
         public readonly ?Timestamp $end
     ){
     }
-
-    public static function build(string $uriQuery): static
-    {
-        parse_str($uriQuery, $arr);
-        $userNames = new UserNames();
-        if (isset($arr['users'])) {
-            foreach ($arr['users'] as $u) {
-                $userNames->add(new UserName($u));
-            }
-        }
-
-        return new static(
-            $userNames,
-            isset($arr['begin']) ? new Timestamp($arr['begin']): null,
-            isset($arr['end']) ? new Timestamp($arr['end']): null
-        );
-    }
 }

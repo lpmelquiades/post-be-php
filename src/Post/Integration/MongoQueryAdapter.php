@@ -3,8 +3,12 @@
 declare(strict_types=1);
 
 namespace Post\Integration;
+
+use Post\Query\Count;
 use Post\Query\Search;
 use Post\QueryModel\QueryPort;
+use Post\QueryModel\Timestamp;
+use Post\QueryModel\UserNames;
 
 class MongoQueryAdapter implements QueryPort
 {
@@ -13,10 +17,35 @@ class MongoQueryAdapter implements QueryPort
     ) {
     }
 
+    public function count(Count $s): array
+    {
+        $postColl = $this->client->selectCollection('post_db', 'post');
+        $match = $this->buildMatch($s->userNames, $s->begin, $s->end);
+        $cursor = $postColl->aggregate(
+            array_merge(
+                $match,
+                [ 
+                    ['$group' => [
+                        '_id' => null,
+                        'count' =>  [ '$sum' => 1 ]
+                    ]]
+                ]
+            )
+        );
+        $bson = ['count' => 0];
+        foreach($cursor as $c) {
+            $bson = $c;
+        }
+        $json = \MongoDB\BSON\toJSON(\MongoDB\BSON\fromPHP($bson));
+        $arr = json_decode($json, true);
+        unset($arr['_id']);
+        return $arr;
+    }
+
     public function search(Search $s): array
     {
         $postColl = $this->client->selectCollection('post_db', 'post');
-        $match =  $this->buildMatch($s);
+        $match =  $this->buildMatch($s->userNames, $s->begin, $s->end);
         $pipeline = $this->buildPipe($s);
         $cursor = $postColl->aggregate(  
             array_merge($match, $pipeline)
@@ -39,18 +68,18 @@ class MongoQueryAdapter implements QueryPort
         }, $postsArr);
     }
 
-    private function buildMatch(Search $s): array
+    private function buildMatch(UserNames $userNames, ?Timestamp $begin, ?Timestamp $end): array
     {
         $expArr = [];
-        if ($s->userNames->count() !== 0) {
-            $expArr = [['$in' => ['$user_name', $s->userNames->toArray()]]];
+        if ($userNames->count() !== 0) {
+            $expArr = [['$in' => ['$user_name', $userNames->toArray()]]];
         }
 
-        if ($s->begin !== null) {
-            $expArr[] = ['$gte' => [['$toDate' => '$created_at'], ['$toDate' => $s->begin->value]]];
+        if ($begin !== null) {
+            $expArr[] = ['$gte' => [['$toDate' => '$created_at'], ['$toDate' => $begin->value]]];
         }
-        if ($s->end !== null) {
-            $expArr[] = ['$lte' => [['$toDate' => '$created_at'], ['$toDate' => $s->end->value], ]];
+        if ($end !== null) {
+            $expArr[] = ['$lte' => [['$toDate' => '$created_at'], ['$toDate' => $end->value], ]];
         }
         return $expArr === [] ? [] : [['$match' => ['$expr' => ['$and' => $expArr]]]];
     }
