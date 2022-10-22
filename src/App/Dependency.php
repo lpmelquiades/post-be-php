@@ -57,7 +57,7 @@ final class Dependency
     }
 
     /**
-     * Supports [RQ-01].
+     * Supports [RQ-01]-[RQ-02]-[RQ-03].
      * Ports & Adapters pattern is being used.
      * This adapter will be injected to solve mongo db queries.
      */

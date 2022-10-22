@@ -29,7 +29,7 @@ class MongoQueryAdapter implements QueryPort
     }
  
     /**
-     * Supports [RQ-01].
+     * Supports [RQ-01]-[RQ-02]-[RQ-03]..
      * It is MongoDB 4.0 equivalent to AWS-DocumentDB current supported version. 
      * by users[], begin timestamp, end timestamp.
      * It is querying using aggregate-root-push-slice pipeline for pagination.
@@ -64,12 +64,13 @@ class MongoQueryAdapter implements QueryPort
 
     
     /**
-     * Supports [RQ-01].
+     * Supports [RQ-01]-[RQ-02]-[RQ-03].
      * It is MongoDB 4.0 equivalent to AWS-DocumentDB current supported version. 
      * Solves a search of posts filtered by 
      * users[], begin timestamp, end timestamp, page and pagesize.
-     * Does not include the total of pages. The cost of that operation might be high,
-     * so there is separeted function for that.
+     * Does not include the total of pages or total of posts.
+     * The cost of that operation might be high.
+     * There is count function for that.
      */
     public function search(Search $s): array
     {

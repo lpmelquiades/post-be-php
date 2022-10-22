@@ -27,10 +27,10 @@ $app->post('/quote', QuoteAction::class)->add(CommandExceptionCatch::class);
 $app->post('/repost', RepostAction::class)->add(CommandExceptionCatch::class);
 
 
-// Supports [RQ-01].
+// Supports [RQ-01]-[RQ-02]-[RQ-03].
 $app->get('/posts', SearchAction::class)->add(QueryExceptionCatch::class);
 
-// Supports [RQ-01].
+// Supports [RQ-01]-[RQ-02]-[RQ-03].
 $app->get('/posts/count', CountAction::class)->add(QueryExceptionCatch::class);
 
 

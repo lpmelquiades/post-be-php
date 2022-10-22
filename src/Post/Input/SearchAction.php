@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /** 
- *  Supports [RQ-01].
+ *  Supports [RQ-01]-[RQ-02]-[RQ-03].
  *  Relates api input with search query.
  */
 class SearchAction
