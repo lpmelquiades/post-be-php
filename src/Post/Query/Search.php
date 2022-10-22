@@ -7,6 +7,7 @@ namespace Post\Query;
 use Post\QueryModel\Timestamp;
 use Post\QueryModel\UserNames;
 
+//Supports [RQ-01]-[RQ-02]-[RQ-03]
 final class Search
 {
     public function __construct (

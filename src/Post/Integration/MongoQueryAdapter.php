@@ -71,6 +71,8 @@ class MongoQueryAdapter implements QueryPort
      * Does not include the total of pages or total of posts.
      * The cost of that operation might be high.
      * There is count function for that.
+     * 
+     * Supports [RQ-05] when searching for all posts of an user since joined date.
      */
     public function search(Search $s): array
     {

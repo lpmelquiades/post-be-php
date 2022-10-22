@@ -49,6 +49,11 @@ final class Dependency
         });
     }
 
+    /**
+     * Supports [RQ-04].
+     * Ports & Adapters pattern is being used.
+     * This adapter will be injected to solve mongo db persistence.
+     */
     private function getPersistenceAdapter(): FactoryDefinitionHelper
     {
         return \DI\factory(function (Container $c): PersistencePort {
@@ -57,7 +62,7 @@ final class Dependency
     }
 
     /**
-     * Supports [RQ-01]-[RQ-02]-[RQ-03].
+     * Supports [RQ-01]-[RQ-02]-[RQ-03]-[RQ-05].
      * Ports & Adapters pattern is being used.
      * This adapter will be injected to solve mongo db queries.
      */

@@ -17,17 +17,21 @@ final class PostHandler
     public function __construct(
         private LoadPort $load,
         private PersistencePort $persistence
-    ){
+    ) {
     }
 
+    // Supports [RQ-04].
     public function handle(PostCommand $command): void
     {
+        // Checks username.
         if (!$this->load->isValidUser($command->userName)) {
             throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
         }
-        
+
+        // Gets list of ticket for post slots being used now.
         $inUse = $this->load->ticketsInUse($command->userName, new Now());
 
+        // Create original post with next available ticket for todays post slot (MAX 5).
         $post = new Original(
             $inUse->next(),
             Uuid::build(),
