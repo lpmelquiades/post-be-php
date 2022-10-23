@@ -19,14 +19,19 @@ final class QuoteHandler
         private PersistencePort $persistence
     ) {
     }
-
+    //Supports [RQ-09]-[RQ-10]-[RQ-15]
     public function handle(QuoteCommand $command): void
     {
+
+        //Supports [RQ-09] checks for valid user
         if (!$this->load->isValidUser($command->userName)) {
             throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
         }
 
+        //Supports [RQ-15] loads type of the target post being quoted
         $targetPostType = $this->load->postType($command->targetPostId);
+        
+        // Supports [RQ-11]. A post can only be persisted with a unique persistence ticket related.
         $inUse = $this->load->ticketsInUse(
             $command->userName, new Now()
         );

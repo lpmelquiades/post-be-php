@@ -42,6 +42,12 @@ final class Dependency
         });
     }
 
+
+    /**
+     * Supports [RQ-09]-[RQ-11]-[RQ-14].
+     * Ports & Adapters pattern is being used.
+     * This adapter will be injected to solve mongo db load of data during command handling.
+     */
     private function getLoadAdapter(): FactoryDefinitionHelper
     {
         return \DI\factory(function (Container $c): LoadPort {
@@ -49,6 +55,11 @@ final class Dependency
         });
     }
 
+    /**
+     * Supports [RQ-04]-[RQ-07]-[RQ-10]-[RQ-13].
+     * Ports & Adapters pattern is being used.
+     * This adapter will be injected to solve mongo db persistence.
+     */
     private function getPersistenceAdapter(): FactoryDefinitionHelper
     {
         return \DI\factory(function (Container $c): PersistencePort {
@@ -56,6 +67,11 @@ final class Dependency
         });
     }
 
+    /**
+     * Supports [RQ-01]-[RQ-02]-[RQ-03]-[RQ-05].
+     * Ports & Adapters pattern is being used.
+     * This adapter will be injected to solve mongo db queries.
+     */
     private function getQueryAdapter(): FactoryDefinitionHelper
     {
         return \DI\factory(function (Container $c): QueryPort {

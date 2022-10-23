@@ -21,17 +21,27 @@ $app->addRoutingMiddleware();
 
 $app->add(NotFoundExceptionCatch::class);
 $app->add(RequestResponseLogging::class);
-// $app->addErrorMiddleware(true, true, true);
 
+// Supports [RQ-04]-[RQ-07]-[RQ-09]-[RQ-10].
 $app->post('/post', PostAction::class)->add(CommandExceptionCatch::class);
+
+// Supports [RQ-09]-[RQ-10]-[RQ-15]
 $app->post('/quote', QuoteAction::class)->add(CommandExceptionCatch::class);
+
+// Supports [RQ-09]-[RQ-10]-[RQ-14]
 $app->post('/repost', RepostAction::class)->add(CommandExceptionCatch::class);
 
+
+// Supports [RQ-01]-[RQ-02]-[RQ-03].
 $app->get('/posts', SearchAction::class)->add(QueryExceptionCatch::class);
+
+// Supports [RQ-01]-[RQ-02]-[RQ-03]-[RQ-05]-[RQ-06].
 $app->get('/posts/count', CountAction::class)->add(QueryExceptionCatch::class);
+
+// Supports [RQ-01]-[RQ-02]-[RQ-03]-[RQ-05]-[RQ-06].
 $app->get('/post/{id}', GetPostAction::class)->add(QueryExceptionCatch::class);
 
-
+// Supports [RQ-05]-[RQ-08]-[RQ-09].
 $app->get('/user/{username}', GetUserAction::class)->add(QueryExceptionCatch::class);
 
 

@@ -34,46 +34,8 @@ db.post.createIndex(
 
 db.post.createIndex(
     {
-        "ticket_begin": -1
-    },
-    {
-        unique: false
-    }
-);
-
-db.post.createIndex(
-    {
-        "ticket_end": -1
-    },
-    {
-        unique: false
-    }
-);
-
-db.post.createIndex(
-    {
         "user_name": 1,
-        "ticket_begin": -1
-    },
-    {
-        unique: false
-    }
-);
-
-db.post.createIndex(
-    {
-        "user_name": 1,
-        "ticket_end": -1
-    },
-    {
-        unique: false
-    }
-);
-
-db.post.createIndex(
-    {
-        "ticket_begin": -1,
-        "ticket_end": -1
+        "created_at": -1
     },
     {
         unique: false

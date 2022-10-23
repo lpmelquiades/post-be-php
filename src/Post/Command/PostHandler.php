@@ -17,17 +17,21 @@ final class PostHandler
     public function __construct(
         private LoadPort $load,
         private PersistencePort $persistence
-    ){
+    ) {
     }
 
+    // Supports [RQ-04]-[RQ-07]-[RQ-09]-[RQ-10]
     public function handle(PostCommand $command): void
     {
+        // Checks username. // Supports [RQ-07]-[RQ-09]
         if (!$this->load->isValidUser($command->userName)) {
             throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
         }
-        
+
+        // Supports [RQ-11]. A post can only be persisted with a unique persistence ticket related.
         $inUse = $this->load->ticketsInUse($command->userName, new Now());
 
+        // Creates original post with next available ticket (MAX 5) per user per day.
         $post = new Original(
             $inUse->next(),
             Uuid::build(),

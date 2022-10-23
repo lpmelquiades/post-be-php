@@ -7,6 +7,9 @@ namespace Post\CommandModel;
 use DateTime;
 use Illuminate\Support\Collection;
 
+/** Supports [RQ-11].
+ * TicketsInUse is required to get the next persistence ticket for a post.
+ */
 final class TicketsInUse
 {
     private Collection $coll;
@@ -50,6 +53,7 @@ final class TicketsInUse
         $this->coll->put($t->value, $t);
     }
 
+    //Supports [RQ-11]. The ticket is built here.
     public function next(): Ticket
     {
         if ($this->coll->count() === Ticket::MAX_TICKET_NUMBER) {

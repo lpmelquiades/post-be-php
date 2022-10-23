@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Post\CommandModel;
 
 /**
+ * Supports [RQ-12]
  * Posts can have a maximum of 777 characters
  */
 final class Text

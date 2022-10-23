@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use User\QueryModel\UserName;
 use User\QueryModel\Users;
 
+// Supports [RQ-05]. Relates api input with users model
 class GetUserAction
 {
 

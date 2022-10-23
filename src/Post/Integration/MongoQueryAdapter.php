@@ -18,6 +18,10 @@ class MongoQueryAdapter implements QueryPort
     ) {
     }
 
+    /**
+     *  Supports [RQ-01]-[RQ-02]-[RQ-03]-[RQ-06].
+     *  Will be used every time the content of an original post need to be loaded. 
+     * */
     public function getPost(Uuid $id): array
     {
         $postColl = $this->client->selectCollection('post_db', 'post');
@@ -25,9 +29,21 @@ class MongoQueryAdapter implements QueryPort
         $json = \MongoDB\BSON\toJSON(\MongoDB\BSON\fromPHP($bson));
         $arr = json_decode($json, true);
         unset($arr['_id']);
+        unset($arr['ticket_begin']);
+        unset($arr['ticket_end']);
+        unset($arr['ticket_count']);
         return $arr;
     }
-
+ 
+    /**
+     * Supports [RQ-01]-[RQ-02]-[RQ-03]..
+     * It is MongoDB 4.0 equivalent to AWS-DocumentDB current supported version. 
+     * by users[], begin timestamp, end timestamp.
+     * It is querying using aggregate-root-push-slice pipeline for pagination.
+     * It seems aggregate-root-push-slice is more performatic
+     * when compared to find-skip-limit.
+     * A load test could bring more conclusive data about it. 
+     */
     public function count(Count $s): array
     {
         $postColl = $this->client->selectCollection('post_db', 'post');
@@ -50,9 +66,22 @@ class MongoQueryAdapter implements QueryPort
         $json = \MongoDB\BSON\toJSON(\MongoDB\BSON\fromPHP($bson));
         $arr = json_decode($json, true);
         unset($arr['_id']);
+
         return $arr;
     }
 
+    
+    /**
+     * Supports [RQ-01]-[RQ-02]-[RQ-03].
+     * It is MongoDB 4.0 equivalent to AWS-DocumentDB current supported version. 
+     * Solves a search of posts filtered by 
+     * users[], begin timestamp, end timestamp, page and pagesize.
+     * Does not include the total of pages or total of posts.
+     * The cost of that operation might be high.
+     * There is count function for that.
+     * 
+     * Supports [RQ-05] when searching for all posts of an user since joined date.
+     */
     public function search(Search $s): array
     {
         $postColl = $this->client->selectCollection('post_db', 'post');
@@ -75,6 +104,9 @@ class MongoQueryAdapter implements QueryPort
         $postsArr = json_decode($postsJson, true);
         return array_map(function ($post) {
             unset($post['_id']);
+            unset($post['ticket_begin']);
+            unset($post['ticket_end']);
+            unset($post['ticket_count']);    
             return $post;
         }, $postsArr);
     }
