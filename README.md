@@ -9,16 +9,13 @@ Worked around 4 hours each day. Total of 20 hours.
 - 2022 October 21: Most in Post Query Model  & Api-Db-Integration.
 - 2022 October 22: User Control, User Api Endpoint, General Review & Documentation.
 
-I'm used to code microservices that last. 4 hours is not enough.
-The most difficult rule here is related to number of posts per day.
-If not well design in the db. It will fail because of concurrent writing.
-
 # Setup
 1. Call 'make init' to start all containers and install vendor;
 2. Call 'make tests' to run unit tests and code coverage analysis;
 3. You can see the test coverage analysis pasting this path at your browser.
 file:///home/lpmelquiades/post-be-php/tests/_output/coverage/Post/CommandModel/index.html
 4. Insomnia collection is inside http_collection folder.
+5. Call 'make app-logs' to see every log.
 
 # Requirements Map
 **RQ means requeriment**
@@ -74,30 +71,57 @@ file:///home/lpmelquiades/post-be-php/tests/_output/coverage/Post/CommandModel/i
 
 # Critique
 
+I'm used to code microservices that last. 4 hours is not enough.
+The most difficult rule here is related to number of posts per day.
+If not well design in the db. It will fail because of concurrent writing.
 
-1. I've used Ports & Adapters to invert dependecies between database integration and models.
+## 1. Ports & Adapters
+Ports & Adapters is being used to invert dependecies between database integration and models.
 - It is a way of creating a plug and play flexibility between models and integrations.
 - It happens by writing a new adapter to the same port with no need of touching any model.
 - It is less complicated to replace data providers or databases.
 - Related reading: https://herbertograca.com/2017/08/24/ebi-architecture/
 
-2. I've used command and query responsability separation. CQRS.
-
+## 2. CQRS
+I'm using command and query responsability separation. 
 - The ideia is to never share code between command models and query models.
 - That way each model can evolve alone without affecting each other.
 - Also, queries get more complex as systems evolve to support end users purposes.
 - (Improve) Classes like Timestamp, UUid and Username might be put inside an interop lib to avoid duplications. In the long run, every system running on microservices must create interop libs and shared models.
 - Enum values are ok to duplicate. Coupling is not Reuse.
-
 -Related reading: https://martinfowler.com/bliki/CQRS.html
 
-3. Low Coupling and High Cohesion.
-- Those two are very important. Class PostDbFormat takes care of the payload format for posts, reposts and quotes. Models should not know about databases.
-- (Improve) Class MongoLoadAdapter Function postType. This function is throwing exceptions. That should happen inside some part of the model.
+## 3. Low Coupling and High Cohesion.
+- Those two are very important. For example, Class PostDbFormat takes care of the payload format for posts, reposts and quotes. Models should not know about databases.
+- Different example. (Improve) Class MongoLoadAdapter Function postType. That function is making few validations that should be somewhere in the command model.
 
-4.
+## 4. CQRS, MongoDb 4.0 and Aws DocumentDB
+- Thinking about production. MongoDb 4.0 and Aws DocumentDB are equivalents.
+- The way the code is organized it is possible to split the microservice to reach the scaling needed. 
+- Put commands to run separated from queries and segregating throughput between microservices.
+- Having database shards only for writing and others only for reading.
+- Also, by providing enough infra resources like pod instances, database bandwith and database shards.
+- That way different features might scale without affecting each other.
 
-# Links I always come back to
-- https://php-di.org/doc/frameworks/slim.html
-- https://github.com/PHP-DI/Slim-Bridge
-- https://www.slimframework.com/
+## 4. Input
+Usually, microservices have apis as input adapters. Here, I'm using the SlimBridge Http Request-Reponse Resolver. It offers Http-Routing, Request-Response Middleware processing and Dependency Injection.
+- Actions are responsable of passing parameters, payloads and uri-queries as commands and queries.
+- Middlewares are responsable of transforming Request and Responses properties when needed.
+- The container holds basic instantiation settings for database clients and any other shared resources.
+- You can read more at:
+    - https://php-di.org/doc/frameworks/slim.html
+    - https://github.com/PHP-DI/Slim-Bridge
+    - https://www.slimframework.com/
+
+## 5. Monitoring and Exceptions
+- I'm putting exceptions details as part of the Responses
+since I'm considering this is a backend application.
+- By doing that testing and monitoring gets more tangible.
+
+## 6. Tools in general.
+- Codeception for tests and code coverage.
+- Xdebug is there also.
+- Docker and Docker compose for local development.
+- Logs with Monolog.
+
+# End.

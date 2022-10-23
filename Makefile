@@ -20,6 +20,8 @@ up-d:
 init: build-no-cache up-d vendor-install
 
 
+app-logs:
+	docker exec -it post-be-php sh -c "tail -f /tmp/app.log"
 
 logs:
 	docker-compose logs -f
