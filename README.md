@@ -18,7 +18,7 @@ If not well design in the db. It will fail because of concurrent writing.
 2. Call 'make tests' to run unit tests and code coverage analysis;
 3. You can see the test coverage analysis pasting this path at your browser.
 file:///home/lpmelquiades/post-be-php/tests/_output/coverage/Post/CommandModel/index.html
-4. 
+4. Insomnia collection is inside http_collection folder.
 
 # Requirements Map
 **RQ means requeriment**
@@ -73,3 +73,31 @@ file:///home/lpmelquiades/post-be-php/tests/_output/coverage/Post/CommandModel/i
 **[RQ-15]** Quote-post: Users can repost other user's posts and leave a comment along with it (like Twitter Quote Tweet) limited to original and reposts (not quote-posts)
 
 # Critique
+
+
+1. I've used Ports & Adapters to invert dependecies between database integration and models.
+- It is a way of creating a plug and play flexibility between models and integrations.
+- It happens by writing a new adapter to the same port with no need of touching any model.
+- It is less complicated to replace data providers or databases.
+- Related reading: https://herbertograca.com/2017/08/24/ebi-architecture/
+
+2. I've used command and query responsability separation. CQRS.
+
+- The ideia is to never share code between command models and query models.
+- That way each model can evolve alone without affecting each other.
+- Also, queries get more complex as systems evolve to support end users purposes.
+- (Improve) Classes like Timestamp, UUid and Username might be put inside an interop lib to avoid duplications. In the long run, every system running on microservices must create interop libs and shared models.
+- Enum values are ok to duplicate. Coupling is not Reuse.
+
+-Related reading: https://martinfowler.com/bliki/CQRS.html
+
+3. Low Coupling and High Cohesion.
+- Those two are very important. Class PostDbFormat takes care of the payload format for posts, reposts and quotes. Models should not know about databases.
+- (Improve) Class MongoLoadAdapter Function postType. This function is throwing exceptions. That should happen inside some part of the model.
+
+4.
+
+# Links I always come back to
+- https://php-di.org/doc/frameworks/slim.html
+- https://github.com/PHP-DI/Slim-Bridge
+- https://www.slimframework.com/
