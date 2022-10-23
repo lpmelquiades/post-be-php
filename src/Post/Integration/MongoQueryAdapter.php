@@ -29,6 +29,9 @@ class MongoQueryAdapter implements QueryPort
         $json = \MongoDB\BSON\toJSON(\MongoDB\BSON\fromPHP($bson));
         $arr = json_decode($json, true);
         unset($arr['_id']);
+        unset($arr['ticket_begin']);
+        unset($arr['ticket_end']);
+        unset($arr['ticket_count']);
         return $arr;
     }
  
@@ -63,6 +66,10 @@ class MongoQueryAdapter implements QueryPort
         $json = \MongoDB\BSON\toJSON(\MongoDB\BSON\fromPHP($bson));
         $arr = json_decode($json, true);
         unset($arr['_id']);
+        unset($arr['ticket_begin']);
+        unset($arr['ticket_end']);
+        unset($arr['ticket_count']);
+
         return $arr;
     }
 
