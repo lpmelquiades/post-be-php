@@ -25,10 +25,10 @@ $app->add(RequestResponseLogging::class);
 // Supports [RQ-04]-[RQ-07]-[RQ-09]-[RQ-10].
 $app->post('/post', PostAction::class)->add(CommandExceptionCatch::class);
 
-// Supports [RQ-09]-[RQ-10]
+// Supports [RQ-09]-[RQ-10]-[RQ-15]
 $app->post('/quote', QuoteAction::class)->add(CommandExceptionCatch::class);
 
-// Supports [RQ-09]-[RQ-10]
+// Supports [RQ-09]-[RQ-10]-[RQ-14]
 $app->post('/repost', RepostAction::class)->add(CommandExceptionCatch::class);
 
 

@@ -28,7 +28,7 @@ final class PostHandler
             throw new \LogicException(ExceptionReference::INVALID_USERNAME->value);
         }
 
-        // A post can only be persisted with a unique ticket related.
+        // Supports [RQ-11]. A post can only be persisted with a unique persistence ticket related.
         $inUse = $this->load->ticketsInUse($command->userName, new Now());
 
         // Creates original post with next available ticket (MAX 5) per user per day.

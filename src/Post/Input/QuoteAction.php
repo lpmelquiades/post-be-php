@@ -15,6 +15,7 @@ use Post\CommandModel\Uuid;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+//Supports [RQ-09]-[RQ-10]-[RQ-15]
 class QuoteAction
 {
     public function __construct(

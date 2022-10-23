@@ -19,6 +19,8 @@ class MongoPersistenceAdapter implements PersistencePort
      * However if you need to insert more than one document.
      * You will need transactions.
      * MongoDB 4.0 and AWS Document both give support to transactions.
+     * 
+     * Supports [RQ-11] NexPost is needed to persist a new Post
      */
     public function save(NextPost $next): void
     {

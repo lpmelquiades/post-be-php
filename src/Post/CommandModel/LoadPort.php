@@ -12,6 +12,7 @@ interface LoadPort
     */
     public function ticketsInUse(UserName $userName, Now $now): TicketsInUse;
 
+    // Supports [RQ-14]-[RQ-15]
     public function postType(Uuid $id): PostType;
 
     // Supports [RQ-07]-[RQ-09]

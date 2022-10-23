@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Post\CommandModel;
 
+
+/** Supports [RQ-11]
+ * NexPost is needed to persist a new Post
+ * */
 final class NextPost
 {
     public function __construct(
