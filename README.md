@@ -9,15 +9,21 @@ Worked around 4 hours each day. Total of 20 hours.
 - 2022 October 21: Most in Post Query Model  & Api-Db-Integration.
 - 2022 October 22: User Control, User Api Endpoint, General Review & Documentation.
 
-I'm used to code microservices that last. 4 hours is what it takes to put together an integration poc without any concerning for business rules.
-
+I'm used to code microservices that last. 4 hours is not enough.
 The most difficult rule here is related to number of posts per day.
 If not well design in the db. It will fail because of concurrent writing.
+
+# Setup
+1. Call 'make init' to start all containers and install vendor;
+2. Call 'make tests' to run unit tests and code coverage analysis;
+3. You can see the test coverage analysis pasting this path at your browser.
+file:///home/lpmelquiades/post-be-php/tests/_output/coverage/Post/CommandModel/index.html
+4. 
 
 # Requirements Map
 **RQ means requeriment**
 
-**Please!!!!** Search the project for RQ-01, RQ-02 to understand where each requirement is being supported.
+**PLEASE!!!!** Search the project for RQ-01, RQ-02 to understand where each requirement is being supported.
 
 ## Homepage
 
@@ -66,3 +72,4 @@ If not well design in the db. It will fail because of concurrent writing.
 
 **[RQ-15]** Quote-post: Users can repost other user's posts and leave a comment along with it (like Twitter Quote Tweet) limited to original and reposts (not quote-posts)
 
+# Critique
